@@ -1,0 +1,87 @@
+# Ruang Aplikasi
+
+Portal alat digital produktivitas harian yang ringan, cepat, dan responsif dalam **satu file HTML mandiri (`index.html`)** tanpa dependensi eksternal, framework, atau build tool.
+
+---
+
+## 🛠️ Koleksi Aplikasi
+
+### 1. 🎯 Habit Tracker (Pelacak Kebiasaan Harian)
+Alat untuk membangun kebiasaan positif, menjaga konsistensi, dan memantau riwayat aktivitas harian:
+- **Tambah Kebiasaan**: Masukkan nama kebiasaan (misal: *"Minum air 8 gelas"*, *"Membaca 10 halaman"*). Ditambahkan lewat tombol **Tambah** atau tombol **Enter**.
+- **Validasi Input**: Otomatis memotong spasi berlebih (*trim*), batas maksimal 100 karakter, indikator penghitung karakter, serta pesan peringatan yang jelas bila input kosong atau berlebih.
+- **Tanggal Hari Ini & Kontrol Cepat**: Menampilkan tanggal lengkap lokal (misal: *"Jumat, 9 Oktober 2026"*) dengan tombol toggle langsung untuk menandai kebiasaan selesai atau belum selesai hari ini.
+- **Grid Mingguan (7 Hari Terakhir)**: Setiap kebiasaan memiliki grid interaktif 7 hari terakhir dengan warna hijau kontras untuk hari yang dicentang dan penanda khusus untuk hari ini. Kotak tanggal dapat diklik untuk memperbarui riwayat centang.
+- **Perhitungan Streak Cerdas**: Menghitung jumlah hari berturut-turut ke belakang. Jika hari ini belum dicentang, streak **tidak langsung hilang** sehingga pengguna tetap memiliki kesempatan menyelesaikan target hari ini sebelum hari berakhir.
+- **Persentase Penyelesaian Hari Ini**: Menampilkan rasio dan persentase penyelesaian real-time, contoh: *"2 dari 5 kebiasaan selesai (40%)"*, lengkap dengan bilah kemajuan (*progress bar*).
+- **Edit Nama Kebiasaan**: Klik dua kali pada teks kebiasaan atau klik tombol pensil untuk mengedit. Simpan dengan `Enter`, batalkan dengan `Escape`.
+- **Hapus Kebiasaan**: Tombol hapus dengan konfirmasi dialog untuk mencegah kehilangan data secara tidak sengaja, sekaligus membersihkan seluruh riwayat tanggalnya.
+- **Format Tanggal Lokal YYYY-MM-DD**: Data disimpan menggunakan format kalender lokal pengguna (bukan UTC/toISOString), menjamin akurasi tanggal di setiap zona waktu.
+
+---
+
+### 2. ⏱️ Pomodoro Timer (Focus & Break Tracker)
+Alat pengatur ritme kerja berbasis teknik Pomodoro untuk menjaga konsentrasi tinggi dan mencegah kelelahan:
+- **Tiga Mode Waktu**: 
+  - **Fokus** (standar: 25 menit)
+  - **Istirahat Pendek** (standar: 5 menit)
+  - **Istirahat Panjang** (standar: 15 menit)
+- **Timer Presisi Tinggi**: Menggunakan perhitungan akhir berbasis `Date.now()` sehingga waktu tetap akurat dan tidak melambat meskipun tab diminimalkan atau berpindah tab.
+- **Kontrol Fleksibel**: Tombol **Mulai**, **Jeda**, dan **Reset** dengan status visual yang jelas.
+- **Konfirmasi Ganti Mode**: Mengganti mode secara manual saat timer sedang berjalan memerlukan konfirmasi pengguna agar waktu fokus tidak hilang secara tidak sengaja.
+- **Notifikasi Multi-Sensori**:
+  - Suara beep ramah menggunakan **Web Audio API** sintetis (tanpa file audio eksternal).
+  - Banner peringatan visual di layar saat sesi selesai.
+- **Siklus 4 Pomodoro**: Otomatis menyarankan dan menyediakan pintasan untuk **Istirahat Panjang** setiap kali menyelesaikan 4 sesi Fokus.
+- **Pengaturan Durasi Kustom**: Durasi setiap mode dapat diubah sesuai preferensi (rentang 1 hingga 60 menit) dengan validasi angka yang ketat.
+- **Statistik Sesi & Reset Otomatis**:
+  - Melacak jumlah Pomodoro selesai **Hari Ini**, **Total Keseluruhan**, dan progres siklus saat ini.
+  - Jumlah "Hari Ini" direset secara otomatis saat berganti tanggal kalender.
+  - Tombol **Reset Statistik** dengan konfirmasi dialog.
+- **Judul Tab Browser Dinamis**: Menampilkan sisa waktu dan mode aktif di judul tab peramban (misal: `24:59 - Fokus`).
+- **Shortcut Keyboard**:
+  - `Spasi` : Mulai / Jeda timer
+  - `R` : Reset timer
+
+---
+
+### 3. ✓ To-Do List (Task Tracker)
+Daftar tugas harian interaktif untuk mengorganisir aktivitas:
+- **Tambah Tugas Cepat**: Tambah melalui kolom input teks dengan tombol **Tambah** atau tekan tombol **Enter**.
+- **Validasi Lengkap**: Bebas dari spasi kosong (`trim`), batas maksimal 200 karakter, indikator penghitung karakter langsung, serta pesan error yang jelas.
+- **Status & Coretan Selesai**: Checkbox untuk menandai tugas telah selesai (teks dicoret otomatis dan warna meredup).
+- **Edit Tugas Fleksibel**: Klik dua kali pada teks tugas atau klik ikon pensil untuk mengubah. Simpan dengan `Enter`, batalkan dengan `Escape`.
+- **Hapus Aman**: Hapus item individual dengan konfirmasi dialog pencegah salah klik.
+- **Filter Tugas**: Tab filter **Semua**, **Aktif**, dan **Selesai**.
+- **Indikator Sisa Tugas**: Menampilkan jumlah tugas aktif yang belum selesai (misal: *"3 tugas tersisa"*).
+- **Hapus Massal**: Tombol **Hapus yang selesai** untuk membersihkan semua tugas terselesaikan sekaligus.
+- **Keamanan XSS**: Input pengguna di-*escape* secara native menggunakan DOM API (`textContent`), aman dari injeksi script berbahaya.
+
+---
+
+### 4. ± Kalkulator Sederhana
+Kalkulator praktis untuk perhitungan harian:
+- Operasi dasar matematika: tambah (`+`), kurang (`−`), kali (`×`), bagi (`÷`).
+- Operasi utilitas: persentase (`%`), pembalik tanda (`+/-`), angka desimal (`.`), dan tombol hapus bersih (`AC`).
+- Dukungan input tombol layar serta shortcut keyboard penuh (`0-9`, `+`, `-`, `*`, `/`, `Enter`, `Backspace`, `Escape`).
+
+---
+
+## 💾 Penyimpanan Data
+
+Semua data (kebiasaan & riwayat tanggal, pengaturan durasi pomodoro, statistik sesi, serta daftar to-do) disimpan di peramban menggunakan `localStorage` dengan pengamanan blok `try/catch`.
+- Data tetap tersimpan rapi saat halaman di-refresh atau browser ditutup.
+- Jika fitur `localStorage` dinonaktifkan di browser (misalnya mode *incognito* terbatas), aplikasi tetap berjalan lancar di memori tanpa memicu error.
+
+---
+
+## 🚀 Cara Menjalankan
+
+1. Cukup buka file **`index.html`** langsung menggunakan browser apa pun (Google Chrome, Mozilla Firefox, Microsoft Edge, Safari, Opera).
+2. **Tanpa instalasi**, tanpa NodeJS, tanpa koneksi internet, dan tanpa proses *build*.
+
+Aplikasi juga mendukung navigasi langsung melalui hash URL:
+- Buka Habit Tracker langsung: `index.html#habit`
+- Buka Pomodoro langsung: `index.html#pomodoro`
+- Buka To-Do List langsung: `index.html#todo`
+- Buka Kalkulator langsung: `index.html#kalkulator`

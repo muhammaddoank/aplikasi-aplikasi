@@ -1,0 +1,3560 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f7f2">
+  <title>Ruang Aplikasi</title>
+  <style>
+    /* ==========================================================================
+       1. VARIABEL & PENGATURAN DASAR TEMA
+       ========================================================================== */
+    :root {
+      color-scheme: light;
+      --ink: #1e332c;
+      --muted: #586961;
+      --paper: #f4f7f2;
+      --line: #dbe4db;
+      --green: #27684f;
+      --green-dark: #1b4b39;
+      --green-light: #eef5ea;
+      --lime: #d8ed9c;
+      --white: #ffffff;
+      --danger: #b3261e;
+      --danger-hover: #8c1d18;
+      --warning-bg: #fff8e6;
+      --warning-border: #f0c36d;
+      --warning-ink: #7a5200;
+      --shadow-sm: 0 2px 6px rgba(30, 51, 44, 0.05);
+      --shadow-md: 0 10px 24px rgba(30, 51, 44, 0.08);
+      --shadow-lg: 0 24px 80px rgba(25, 48, 38, 0.2);
+      font-family: "Avenir Next", Avenir, "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      min-width: 320px;
+      min-height: 100vh;
+      margin: 0;
+      color: var(--ink);
+      background-color: var(--paper);
+      background-image: radial-gradient(#d5e2d5 0.75px, transparent 0.75px);
+      background-size: 19px 19px;
+      line-height: 1.5;
+    }
+
+    button, input { font: inherit; }
+
+    /* ==========================================================================
+       2. TATA LETAK UTAMA HALAMAN & NAVIGASI
+       ========================================================================== */
+    .page {
+      display: grid;
+      min-height: 100vh;
+      grid-template-rows: auto 1fr auto;
+      padding: 0 clamp(20px, 6vw, 104px);
+    }
+
+    .topbar, .footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .topbar {
+      min-height: 82px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--ink);
+      font-size: 15px;
+      font-weight: 750;
+      text-decoration: none;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 32px;
+      height: 32px;
+      place-items: center;
+      border-radius: 9px;
+      color: var(--white);
+      background: var(--green);
+      font-size: 17px;
+    }
+
+    .top-nav {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-link {
+      padding: 8px 12px;
+      border-radius: 6px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 650;
+      text-decoration: none;
+      transition: color 150ms ease;
+    }
+
+    .nav-link:hover { color: var(--green-dark); }
+
+    .nav-button {
+      padding: 9px 14px;
+      border: 1px solid #cad8cb;
+      border-radius: 7px;
+      color: var(--green-dark);
+      background: rgba(255, 255, 255, 0.75);
+      font-size: 14px;
+      font-weight: 650;
+      cursor: pointer;
+      transition: background 150ms ease, border-color 150ms ease, transform 150ms ease;
+    }
+
+    .nav-button:hover {
+      border-color: var(--green);
+      background: var(--white);
+      transform: translateY(-1px);
+    }
+
+    /* ==========================================================================
+       3. KONTEN HERO & KATALOG APLIKASI
+       ========================================================================== */
+    main {
+      display: grid;
+      align-content: start;
+      gap: 64px;
+      width: min(100%, 1040px);
+      margin: 0 auto;
+      padding: 64px 0 80px;
+    }
+
+    .hero { max-width: 760px; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin: 0 0 24px;
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 750;
+      letter-spacing: 1.3px;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      width: 22px;
+      height: 2px;
+      background: #8fb868;
+      content: "";
+    }
+
+    h1 {
+      max-width: 760px;
+      margin: 0;
+      font-size: clamp(40px, 6.5vw, 72px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+    }
+
+    h1 span { color: var(--green); }
+
+    .intro {
+      max-width: 520px;
+      margin: 22px 0 30px;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.65;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .launch-button {
+      display: inline-flex;
+      min-height: 50px;
+      align-items: center;
+      gap: 16px;
+      padding: 0 20px;
+      border: 0;
+      border-radius: 8px;
+      color: var(--white);
+      background: var(--green);
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 150ms ease, transform 150ms ease;
+    }
+
+    .launch-button:hover {
+      background: var(--green-dark);
+      transform: translateY(-2px);
+    }
+
+    .launch-arrow { font-size: 18px; font-weight: 400; }
+
+    .catalog { scroll-margin-top: 24px; }
+
+    .catalog-heading {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 22px;
+    }
+
+    .catalog-kicker {
+      margin: 0 0 6px;
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 750;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .catalog-title { margin: 0; font-size: 26px; font-weight: 700; }
+
+    .search-input {
+      width: min(100%, 260px);
+      min-height: 42px;
+      padding: 0 14px;
+      border: 1px solid #d3ddd3;
+      border-radius: 8px;
+      color: var(--ink);
+      background: rgba(255, 255, 255, 0.9);
+      font-size: 14px;
+    }
+
+    .search-input::placeholder { color: #7f8f84; }
+
+    .app-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+      gap: 16px;
+    }
+
+    .app-card {
+      display: flex;
+      min-height: 196px;
+      flex-direction: column;
+      align-items: stretch;
+      padding: 22px;
+      border: 1px solid #dce5dc;
+      border-radius: 10px;
+      color: var(--ink);
+      background: rgba(255, 255, 255, 0.92);
+      text-align: left;
+      transition: border-color 150ms ease, background 150ms ease, transform 150ms ease, box-shadow 150ms ease;
+    }
+
+    button.app-card { width: 100%; cursor: pointer; }
+
+    button.app-card:hover {
+      border-color: #a4c2a4;
+      background: #ffffff;
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .app-card-top, .app-card-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .app-icon {
+      display: grid;
+      width: 44px;
+      height: 44px;
+      flex: 0 0 auto;
+      place-items: center;
+      border: 1px solid #dbe6d3;
+      border-radius: 10px;
+      color: var(--green-dark);
+      background: #eef5e9;
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .app-status {
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .app-name { margin: 16px 0 6px; font-size: 18px; font-weight: 700; }
+    .app-description { margin: 0 0 16px; color: var(--muted); font-size: 14px; line-height: 1.55; }
+    .app-category { color: #6f7f74; font-size: 12px; }
+    .app-arrow { color: var(--green); font-size: 18px; font-weight: 700; }
+
+    .app-card.is-coming-soon {
+      border-style: dashed;
+      background: rgba(255, 255, 255, 0.5);
+    }
+
+    .is-coming-soon .app-icon { color: #768579; background: #edf1eb; }
+    .is-coming-soon .app-status { color: #7b8a7f; }
+
+    .empty-state {
+      margin: 0;
+      padding: 32px 20px;
+      border: 1px dashed #cbdbcb;
+      border-radius: 8px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .footer {
+      min-height: 64px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .footer-note { display: flex; align-items: center; gap: 8px; }
+    .status-dot { width: 7px; height: 7px; border-radius: 50%; background: #76a96a; }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      clip-path: inset(50%);
+    }
+
+    /* ==========================================================================
+       4. DIALOG MODAL UMUM
+       ========================================================================== */
+    dialog {
+      max-width: none;
+      padding: 0;
+      border: 1px solid #dce5dc;
+      border-radius: 14px;
+      color: var(--ink);
+      background: var(--white);
+      box-shadow: var(--shadow-lg);
+    }
+
+    dialog::backdrop {
+      background: rgba(20, 36, 30, 0.48);
+      backdrop-filter: blur(4px);
+    }
+
+    .close-button {
+      display: grid;
+      width: 34px;
+      height: 34px;
+      place-items: center;
+      border: 0;
+      border-radius: 7px;
+      color: var(--muted);
+      background: transparent;
+      font-size: 22px;
+      cursor: pointer;
+      transition: background 120ms ease, color 120ms ease;
+    }
+
+    .close-button:hover { color: var(--ink); background: #eef3ec; }
+
+    /* ==========================================================================
+       5. MODAL HABIT TRACKER (PELACAK KEBIASAAN)
+       ========================================================================== */
+    #habit-dialog {
+      width: min(94vw, 640px);
+      max-height: 92vh;
+      overflow: hidden;
+    }
+
+    .habit-app {
+      display: flex;
+      max-height: 92vh;
+      flex-direction: column;
+    }
+
+    .habit-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--line);
+      background: #f9fbf8;
+    }
+
+    .habit-header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .habit-header-icon {
+      display: grid;
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      border: 1px solid #d7e4d0;
+      border-radius: 8px;
+      color: var(--green-dark);
+      background: #eef6ea;
+      font-size: 20px;
+    }
+
+    .habit-title { margin: 0; font-size: 18px; font-weight: 700; }
+    .habit-subtitle { margin: 2px 0 0; color: var(--muted); font-size: 12px; }
+
+    /* Ringkasan Hari Ini & Progress Bar */
+    .habit-summary-card {
+      padding: 16px 22px;
+      border-bottom: 1px solid var(--line);
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .habit-summary-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .habit-today-date {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--green-dark);
+    }
+
+    .habit-progress-stat {
+      font-size: 13px;
+      font-weight: 650;
+      color: var(--ink);
+    }
+
+    .habit-progress-track {
+      width: 100%;
+      height: 7px;
+      border-radius: 99px;
+      background: #e6eee5;
+      overflow: hidden;
+    }
+
+    .habit-progress-fill {
+      height: 100%;
+      border-radius: 99px;
+      background: var(--green);
+      transition: width 250ms ease;
+    }
+
+    /* Form Tambah Kebiasaan */
+    .habit-form-container {
+      padding: 14px 22px;
+      border-bottom: 1px solid var(--line);
+      background: #fbfdfa;
+    }
+
+    .habit-form {
+      display: flex;
+      gap: 8px;
+    }
+
+    .habit-input {
+      flex: 1;
+      min-width: 0;
+      min-height: 42px;
+      padding: 0 14px;
+      border: 1px solid #d4ded4;
+      border-radius: 8px;
+      color: var(--ink);
+      background: #ffffff;
+      font-size: 14px;
+      transition: border-color 150ms ease, box-shadow 150ms ease;
+    }
+
+    .habit-input:focus, .habit-edit-input:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(39, 104, 79, 0.15);
+      outline: none;
+    }
+
+    .habit-add-btn {
+      display: inline-flex;
+      min-height: 42px;
+      align-items: center;
+      justify-content: center;
+      padding: 0 18px;
+      border: 0;
+      border-radius: 8px;
+      color: var(--white);
+      background: var(--green);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 150ms ease, transform 120ms ease;
+    }
+
+    .habit-add-btn:hover {
+      background: var(--green-dark);
+      transform: translateY(-1px);
+    }
+
+    .habit-form-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 6px;
+      min-height: 18px;
+      font-size: 12px;
+    }
+
+    .habit-form-error {
+      color: var(--danger);
+      font-weight: 600;
+    }
+
+    .habit-char-counter {
+      margin-left: auto;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Kontainer List Kebiasaan */
+    .habit-list-wrap {
+      flex: 1;
+      overflow-y: auto;
+      max-height: 50vh;
+      padding: 14px 22px;
+    }
+
+    .habit-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 12px;
+    }
+
+    /* Kartu Item Kebiasaan */
+    .habit-item {
+      padding: 14px 16px;
+      border: 1px solid #e1eae0;
+      border-radius: 10px;
+      background: #ffffff;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: border-color 150ms ease, box-shadow 150ms ease;
+    }
+
+    .habit-item:hover {
+      border-color: #cad8ca;
+    }
+
+    .habit-item-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .habit-item-title-wrap {
+      flex: 1;
+      min-width: 0;
+      cursor: pointer;
+    }
+
+    .habit-item-title {
+      margin: 0;
+      font-size: 15.5px;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.4;
+      word-break: break-word;
+    }
+
+    .habit-item-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .habit-streak-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 8px;
+      border-radius: 99px;
+      font-size: 11.5px;
+      font-weight: 750;
+      background: #fdf3e2;
+      color: #925800;
+      border: 1px solid #f6deb6;
+    }
+
+    .habit-streak-badge.has-streak {
+      background: #eaf5e7;
+      color: #1d5b29;
+      border-color: #cce4c7;
+    }
+
+    .habit-item-actions {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    /* Bagian Kontrol Hari Ini & Grid 7 Hari */
+    .habit-tracking-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding-top: 8px;
+      border-top: 1px solid #edf2ec;
+    }
+
+    .habit-today-toggle-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 38px;
+      padding: 0 14px;
+      border: 1px solid #cad8cb;
+      border-radius: 7px;
+      background: #ffffff;
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 120ms ease, border-color 120ms ease, color 120ms ease;
+    }
+
+    .habit-today-toggle-btn:hover {
+      border-color: var(--green);
+      background: #f3f8f1;
+    }
+
+    .habit-today-toggle-btn.is-completed {
+      border-color: var(--green);
+      background: var(--green);
+      color: var(--white);
+    }
+
+    .habit-today-toggle-btn.is-completed:hover {
+      background: var(--green-dark);
+    }
+
+    /* Grid 7 Hari Terakhir */
+    .habit-week-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
+      flex: 1;
+      max-width: 320px;
+    }
+
+    .habit-day-cell {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 5px 2px;
+      border: 1px solid #e1e9e0;
+      border-radius: 6px;
+      background: #f8faf7;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 10.5px;
+      transition: background 120ms ease, border-color 120ms ease, transform 100ms ease;
+      user-select: none;
+    }
+
+    .habit-day-cell:hover {
+      border-color: #bad3ba;
+      transform: translateY(-1px);
+    }
+
+    .habit-day-name {
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .habit-day-num {
+      font-size: 11px;
+      font-weight: 650;
+      margin-top: 2px;
+      line-height: 1;
+    }
+
+    .habit-day-check {
+      font-size: 10px;
+      margin-top: 2px;
+      line-height: 1;
+      min-height: 11px;
+    }
+
+    .habit-day-cell.is-checked {
+      background: var(--green);
+      border-color: var(--green-dark);
+      color: var(--white);
+    }
+
+    .habit-day-cell.is-today {
+      border: 2px solid var(--green);
+      font-weight: 750;
+    }
+
+    .habit-day-cell.is-today:not(.is-checked) {
+      color: var(--green-dark);
+      background: #f0f7ee;
+    }
+
+    /* Mode Edit Kebiasaan */
+    .habit-edit-box {
+      width: 100%;
+      display: grid;
+      gap: 8px;
+    }
+
+    .habit-edit-row {
+      display: flex;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .habit-edit-input {
+      flex: 1;
+      min-width: 0;
+      min-height: 38px;
+      padding: 0 12px;
+      border: 1px solid var(--green);
+      border-radius: 6px;
+      font-size: 14px;
+      background: #ffffff;
+    }
+
+    .habit-btn-save {
+      padding: 0 14px;
+      border: 0;
+      border-radius: 6px;
+      color: var(--white);
+      background: var(--green);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .habit-btn-save:hover { background: var(--green-dark); }
+
+    .habit-btn-cancel {
+      padding: 0 12px;
+      border: 1px solid #cad8cb;
+      border-radius: 6px;
+      color: var(--muted);
+      background: #ffffff;
+      font-size: 13px;
+      font-weight: 650;
+      cursor: pointer;
+    }
+
+    .habit-btn-cancel:hover { color: var(--ink); background: #f3f7f1; }
+    .habit-edit-hint { color: var(--muted); font-size: 11.5px; }
+    .habit-edit-error { color: var(--danger); font-size: 12px; font-weight: 600; }
+
+    /* Tampilan Kosong Habit */
+    .habit-empty {
+      padding: 40px 16px;
+      border: 1px dashed #d5e1d4;
+      border-radius: 8px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .habit-empty-title {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .habit-empty-desc {
+      margin: 6px 0 0;
+      font-size: 13px;
+    }
+
+    .habit-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 22px;
+      border-top: 1px solid var(--line);
+      background: #f9fbf8;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* ==========================================================================
+       6. MODAL POMODORO TIMER
+       ========================================================================== */
+    #pomodoro-dialog {
+      width: min(94vw, 540px);
+      max-height: 92vh;
+      overflow: hidden;
+    }
+
+    .pomo-app {
+      display: flex;
+      max-height: 92vh;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    .pomo-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--line);
+      background: #f9fbf8;
+    }
+
+    .pomo-header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .pomo-header-icon {
+      display: grid;
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      border: 1px solid #d7e4d0;
+      border-radius: 8px;
+      color: var(--green-dark);
+      background: #eef6ea;
+      font-size: 20px;
+    }
+
+    .pomo-title { margin: 0; font-size: 18px; font-weight: 700; }
+    .pomo-subtitle { margin: 2px 0 0; color: var(--muted); font-size: 12px; }
+
+    .pomo-header-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pomo-icon-btn {
+      display: grid;
+      width: 34px;
+      height: 34px;
+      place-items: center;
+      border: 1px solid #d4ded4;
+      border-radius: 7px;
+      color: var(--muted);
+      background: var(--white);
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+    }
+
+    .pomo-icon-btn:hover {
+      border-color: var(--green);
+      color: var(--ink);
+      background: #eef5eb;
+    }
+
+    .pomo-modes-wrap {
+      padding: 16px 22px 10px;
+      background: #ffffff;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .pomo-modes {
+      display: flex;
+      padding: 4px;
+      border: 1px solid #d8e2d8;
+      border-radius: 10px;
+      background: #eff5ee;
+      gap: 4px;
+    }
+
+    .pomo-mode-btn {
+      flex: 1;
+      padding: 9px 8px;
+      border: 0;
+      border-radius: 7px;
+      color: var(--muted);
+      background: transparent;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      transition: background 150ms ease, color 150ms ease, box-shadow 150ms ease;
+    }
+
+    .pomo-mode-btn:hover { color: var(--ink); }
+
+    .pomo-mode-btn.is-active {
+      color: var(--green-dark);
+      background: var(--white);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .pomo-timer-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 28px 22px 20px;
+      text-align: center;
+      background: #ffffff;
+    }
+
+    .pomo-status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      background: #edf3ec;
+      color: var(--green-dark);
+      margin-bottom: 8px;
+    }
+
+    .pomo-status-badge.is-running { background: #e3f5e1; color: #1a6328; }
+    .pomo-status-badge.is-paused { background: #fff3d6; color: #8c5800; }
+
+    .pomo-time-display {
+      font-size: clamp(54px, 13vw, 84px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      color: var(--ink);
+      font-variant-numeric: tabular-nums;
+      margin: 6px 0 8px;
+      user-select: none;
+    }
+
+    .pomo-mode-label {
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .pomo-progress-track {
+      width: 100%;
+      max-width: 360px;
+      height: 8px;
+      border-radius: 99px;
+      background: #e5ece5;
+      overflow: hidden;
+      margin-top: 4px;
+    }
+
+    .pomo-progress-bar {
+      height: 100%;
+      border-radius: 99px;
+      background: var(--green);
+      transition: width 250ms linear;
+    }
+
+    .pomo-alert {
+      margin: 10px 22px 0;
+      padding: 12px 16px;
+      border: 1px solid var(--warning-border);
+      border-radius: 8px;
+      background: var(--warning-bg);
+      color: var(--warning-ink);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 13px;
+    }
+
+    .pomo-alert-content {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+    }
+
+    .pomo-alert-icon { font-size: 18px; }
+
+    .pomo-alert-action-btn {
+      padding: 5px 10px;
+      border: 1px solid var(--warning-ink);
+      border-radius: 6px;
+      color: var(--warning-ink);
+      background: transparent;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .pomo-alert-action-btn:hover { background: rgba(122, 82, 0, 0.1); }
+
+    .pomo-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 18px 22px 8px;
+      background: #ffffff;
+    }
+
+    .pomo-btn-main {
+      display: inline-flex;
+      min-width: 140px;
+      min-height: 48px;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 0 24px;
+      border: 0;
+      border-radius: 9px;
+      color: var(--white);
+      background: var(--green);
+      font-size: 16px;
+      font-weight: 750;
+      cursor: pointer;
+      transition: background 150ms ease, transform 120ms ease;
+    }
+
+    .pomo-btn-main:hover {
+      background: var(--green-dark);
+      transform: translateY(-1px);
+    }
+
+    .pomo-btn-main.is-running { background: #2a5a44; }
+
+    .pomo-btn-reset {
+      display: inline-flex;
+      min-height: 48px;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 0 18px;
+      border: 1px solid #cad8cb;
+      border-radius: 9px;
+      color: var(--ink);
+      background: #ffffff;
+      font-size: 14px;
+      font-weight: 650;
+      cursor: pointer;
+      transition: background 120ms ease, border-color 120ms ease;
+    }
+
+    .pomo-btn-reset:hover { border-color: var(--green); background: #f4f8f3; }
+
+    .pomo-keyboard-hint {
+      text-align: center;
+      padding: 0 22px 16px;
+      color: var(--muted);
+      font-size: 12px;
+      background: #ffffff;
+    }
+
+    .pomo-keyboard-hint kbd {
+      display: inline-block;
+      padding: 1px 6px;
+      border: 1px solid #cbd7cb;
+      border-radius: 4px;
+      background: #eef3ec;
+      color: var(--ink);
+      font-family: inherit;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .pomo-settings-panel {
+      padding: 16px 22px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: #fbfdfa;
+    }
+
+    .pomo-settings-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .pomo-settings-title { margin: 0; font-size: 14px; font-weight: 750; color: var(--ink); }
+    .pomo-settings-close-btn { border: 0; background: transparent; color: var(--muted); font-size: 20px; cursor: pointer; }
+
+    .pomo-settings-fields {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 10px;
+    }
+
+    .pomo-field {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      font-size: 12px;
+      font-weight: 650;
+      color: var(--muted);
+    }
+
+    .pomo-field input {
+      min-height: 38px;
+      padding: 0 10px;
+      border: 1px solid #cfdacd;
+      border-radius: 6px;
+      background: #ffffff;
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .pomo-field input:focus {
+      border-color: var(--green);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(39, 104, 79, 0.15);
+    }
+
+    .pomo-settings-error {
+      color: var(--danger);
+      font-size: 12px;
+      font-weight: 650;
+      margin-top: 8px;
+      min-height: 18px;
+    }
+
+    .pomo-settings-actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 10px;
+    }
+
+    .pomo-btn-save-settings {
+      padding: 8px 16px;
+      border: 0;
+      border-radius: 6px;
+      color: var(--white);
+      background: var(--green);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .pomo-btn-save-settings:hover { background: var(--green-dark); }
+
+    .pomo-stats-section {
+      padding: 16px 22px 20px;
+      border-top: 1px solid var(--line);
+      background: #f8faf7;
+    }
+
+    .pomo-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .pomo-stat-card {
+      padding: 12px 10px;
+      border: 1px solid #dfe7df;
+      border-radius: 8px;
+      background: #ffffff;
+      text-align: center;
+    }
+
+    .pomo-stat-value {
+      display: block;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--green-dark);
+      font-variant-numeric: tabular-nums;
+      line-height: 1.2;
+    }
+
+    .pomo-stat-label {
+      display: block;
+      margin-top: 4px;
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 650;
+    }
+
+    .pomo-stats-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .pomo-stats-tip { font-size: 11.5px; color: var(--muted); }
+
+    .pomo-btn-reset-stats {
+      padding: 6px 12px;
+      border: 1px solid #dce4dc;
+      border-radius: 6px;
+      color: var(--muted);
+      background: #ffffff;
+      font-size: 12px;
+      font-weight: 650;
+      cursor: pointer;
+      transition: color 120ms ease, border-color 120ms ease, background 120ms ease;
+    }
+
+    .pomo-btn-reset-stats:hover {
+      border-color: #f7d2cf;
+      color: var(--danger);
+      background: #fdf3f3;
+    }
+
+    /* ==========================================================================
+       7. MODAL TO-DO LIST (TASK TRACKER)
+       ========================================================================== */
+    #todo-dialog {
+      width: min(94vw, 560px);
+      max-height: 90vh;
+      overflow: hidden;
+    }
+
+    .todo-app {
+      display: flex;
+      max-height: 90vh;
+      flex-direction: column;
+    }
+
+    .todo-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--line);
+      background: #f9fbf8;
+    }
+
+    .todo-header-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .todo-header-icon {
+      display: grid;
+      width: 36px;
+      height: 36px;
+      place-items: center;
+      border: 1px solid #d7e4d0;
+      border-radius: 8px;
+      color: var(--green-dark);
+      background: #eef6ea;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .todo-title { margin: 0; font-size: 18px; font-weight: 700; }
+    .todo-subtitle { margin: 2px 0 0; color: var(--muted); font-size: 12px; }
+
+    .todo-form-container {
+      padding: 18px 22px 14px;
+      border-bottom: 1px solid var(--line);
+      background: #ffffff;
+    }
+
+    .todo-form { display: flex; gap: 8px; }
+
+    .todo-input {
+      flex: 1;
+      min-width: 0;
+      min-height: 44px;
+      padding: 0 14px;
+      border: 1px solid #d4ded4;
+      border-radius: 8px;
+      color: var(--ink);
+      background: #ffffff;
+      font-size: 14px;
+      transition: border-color 150ms ease, box-shadow 150ms ease;
+    }
+
+    .todo-input:focus, .todo-edit-input:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(39, 104, 79, 0.15);
+      outline: none;
+    }
+
+    .todo-add-btn {
+      display: inline-flex;
+      min-height: 44px;
+      align-items: center;
+      justify-content: center;
+      padding: 0 18px;
+      border: 0;
+      border-radius: 8px;
+      color: var(--white);
+      background: var(--green);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 150ms ease, transform 120ms ease;
+    }
+
+    .todo-add-btn:hover {
+      background: var(--green-dark);
+      transform: translateY(-1px);
+    }
+
+    .todo-form-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 6px;
+      min-height: 18px;
+      font-size: 12px;
+    }
+
+    .todo-form-error { color: var(--danger); font-weight: 600; }
+    .todo-char-counter { margin-left: auto; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+    .todo-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 22px;
+      border-bottom: 1px solid var(--line);
+      background: #fbfdfa;
+    }
+
+    .todo-filters {
+      display: inline-flex;
+      padding: 3px;
+      border: 1px solid #dce4dc;
+      border-radius: 8px;
+      background: #eff4ed;
+      gap: 2px;
+    }
+
+    .filter-btn {
+      padding: 6px 12px;
+      border: 0;
+      border-radius: 6px;
+      color: var(--muted);
+      background: transparent;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 150ms ease, color 150ms ease;
+    }
+
+    .filter-btn:hover { color: var(--ink); }
+
+    .filter-btn.is-active {
+      color: var(--green-dark);
+      background: var(--white);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .todo-stats {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 650;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .todo-list-wrap {
+      flex: 1;
+      overflow-y: auto;
+      max-height: 48vh;
+      padding: 12px 22px;
+    }
+
+    .todo-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 8px;
+    }
+
+    .todo-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      border: 1px solid #e1eae0;
+      border-radius: 8px;
+      background: #ffffff;
+      transition: border-color 150ms ease, background 150ms ease;
+    }
+
+    .todo-item:hover { border-color: #cad8ca; background: #fbfdfa; }
+    .todo-item.is-completed { background: #f7faf6; border-color: #e5eee4; }
+
+    .todo-checkbox {
+      width: 20px;
+      height: 20px;
+      margin: 0;
+      accent-color: var(--green);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .todo-text-wrap { flex: 1; min-width: 0; cursor: pointer; user-select: none; }
+    .todo-text {
+      margin: 0;
+      color: var(--ink);
+      font-size: 14.5px;
+      line-height: 1.45;
+      word-break: break-word;
+      transition: color 150ms ease;
+    }
+
+    .todo-item.is-completed .todo-text {
+      color: #798a80;
+      text-decoration: line-through;
+    }
+
+    .todo-actions { display: flex; align-items: center; gap: 4px; flex-shrink: 0; }
+
+    .todo-icon-btn {
+      display: grid;
+      width: 32px;
+      height: 32px;
+      place-items: center;
+      border: 1px solid transparent;
+      border-radius: 6px;
+      color: var(--muted);
+      background: transparent;
+      cursor: pointer;
+      transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+    }
+
+    .todo-icon-btn:hover { border-color: #d8e4d6; color: var(--ink); background: #f1f6ef; }
+    .todo-icon-btn.delete:hover { border-color: #f7d2cf; color: var(--danger); background: #fdf2f2; }
+
+    .todo-edit-box { width: 100%; display: grid; gap: 8px; }
+    .todo-edit-row { display: flex; gap: 8px; width: 100%; }
+
+    .todo-edit-input {
+      flex: 1;
+      min-width: 0;
+      min-height: 40px;
+      padding: 0 12px;
+      border: 1px solid var(--green);
+      border-radius: 6px;
+      font-size: 14px;
+      background: #ffffff;
+    }
+
+    .todo-btn-save {
+      padding: 0 14px;
+      border: 0;
+      border-radius: 6px;
+      color: var(--white);
+      background: var(--green);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .todo-btn-save:hover { background: var(--green-dark); }
+
+    .todo-btn-cancel {
+      padding: 0 12px;
+      border: 1px solid #cad8cb;
+      border-radius: 6px;
+      color: var(--muted);
+      background: #ffffff;
+      font-size: 13px;
+      font-weight: 650;
+      cursor: pointer;
+    }
+
+    .todo-btn-cancel:hover { color: var(--ink); background: #f3f7f1; }
+    .todo-edit-hint { color: var(--muted); font-size: 11.5px; }
+    .todo-edit-error { color: var(--danger); font-size: 12px; font-weight: 600; }
+
+    .todo-empty {
+      padding: 36px 16px;
+      border: 1px dashed #d5e1d4;
+      border-radius: 8px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .todo-empty-title { margin: 0; font-size: 15px; font-weight: 700; color: var(--ink); }
+    .todo-empty-desc { margin: 6px 0 0; font-size: 13px; }
+
+    .todo-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 22px;
+      border-top: 1px solid var(--line);
+      background: #f9fbf8;
+    }
+
+    .todo-tips { color: var(--muted); font-size: 12px; }
+
+    .todo-clear-completed-btn {
+      padding: 7px 12px;
+      border: 1px solid #dce4dc;
+      border-radius: 6px;
+      color: var(--muted);
+      background: #ffffff;
+      font-size: 12.5px;
+      font-weight: 650;
+      cursor: pointer;
+      transition: background 150ms ease, color 150ms ease, border-color 150ms ease;
+    }
+
+    .todo-clear-completed-btn:not(:disabled):hover {
+      border-color: #f5c4c0;
+      color: var(--danger);
+      background: #fdf4f4;
+    }
+
+    .todo-clear-completed-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+    /* ==========================================================================
+       8. MODAL KALKULATOR
+       ========================================================================== */
+    #calculator-dialog { width: min(92vw, 370px); }
+    .calculator { padding: 20px; }
+
+    .calc-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .calc-title { margin: 0; font-size: 17px; font-weight: 700; }
+
+    .display {
+      display: flex;
+      min-height: 104px;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: center;
+      overflow: hidden;
+      padding: 12px 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #f7faf6;
+    }
+
+    .expression { min-height: 20px; color: var(--muted); font-size: 13px; }
+    .result {
+      max-width: 100%;
+      overflow: hidden;
+      font-size: 36px;
+      font-variant-numeric: tabular-nums;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .keys {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 9px;
+      margin-top: 14px;
+    }
+
+    .key {
+      display: grid;
+      min-height: 54px;
+      place-items: center;
+      border: 1px solid #e4eae3;
+      border-radius: 7px;
+      color: var(--ink);
+      background: #ffffff;
+      font-size: 17px;
+      cursor: pointer;
+      transition: background 120ms ease, transform 120ms ease;
+    }
+
+    .key:hover { transform: translateY(-1px); background: #f3f7f1; }
+    .key.utility { color: var(--green-dark); background: #eef4ec; font-weight: 600; }
+    .key.operator { color: var(--green-dark); background: #f0f6ec; font-size: 20px; font-weight: 600; }
+    .key.operator.is-active { background: #dfead9; border-color: var(--green); }
+    .key.equals { border-color: var(--green); color: var(--white); background: var(--green); }
+    .key.equals:hover { background: var(--green-dark); }
+    .key.zero { grid-column: span 2; }
+
+    /* Aksesibilitas Fokus */
+    :focus-visible {
+      outline: 3px solid #90c476;
+      outline-offset: 2px;
+    }
+
+    /* ==========================================================================
+       9. PENYESUAIAN RESPONSIVE (LAYAR HP & TABLET)
+       ========================================================================== */
+    @media (max-width: 640px) {
+      .page { padding-right: 18px; padding-left: 18px; }
+      .topbar { min-height: 72px; }
+      .top-nav { gap: 4px; }
+      .nav-link { padding: 7px 6px; font-size: 13px; }
+      .nav-button { padding: 7px 10px; font-size: 13px; }
+      main { gap: 44px; padding: 48px 0 60px; }
+      .intro { font-size: 15.5px; }
+      .catalog-heading { align-items: stretch; flex-direction: column; gap: 12px; }
+      .search-input { width: 100%; }
+      .footer { flex-direction: column; align-items: flex-start; gap: 8px; }
+
+      #habit-dialog, #pomodoro-dialog, #todo-dialog {
+        width: 95vw;
+        max-height: 94vh;
+      }
+
+      .habit-header, .habit-summary-card, .habit-form-container, .habit-list-wrap, .habit-footer,
+      .pomo-header, .pomo-modes-wrap, .pomo-timer-card, .pomo-controls, .pomo-stats-section,
+      .todo-header, .todo-form-container, .todo-toolbar, .todo-list-wrap, .todo-footer {
+        padding-right: 14px;
+        padding-left: 14px;
+      }
+
+      .habit-tracking-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .habit-week-grid { max-width: 100%; }
+      .habit-today-toggle-btn { justify-content: center; width: 100%; }
+
+      .pomo-stats-grid { grid-template-columns: 1fr; gap: 8px; }
+      .pomo-stats-footer { flex-direction: column; align-items: stretch; text-align: center; }
+
+      .todo-toolbar { flex-direction: column; align-items: stretch; }
+      .todo-filters { width: 100%; }
+      .filter-btn { flex: 1; text-align: center; }
+      .todo-stats { text-align: right; }
+      .todo-footer { flex-direction: column; align-items: stretch; gap: 10px; }
+      .todo-clear-completed-btn { width: 100%; text-align: center; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <!-- Header Navigasi -->
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Ruang Aplikasi, beranda">
+        <span class="brand-mark" aria-hidden="true">+</span>
+        <span>ruang aplikasi</span>
+      </a>
+      <nav class="top-nav" aria-label="Navigasi utama">
+        <a class="nav-link" href="#apps">Aplikasi</a>
+        <button class="nav-button" id="menu-habit-button" type="button">Habit Tracker</button>
+        <button class="nav-button" id="menu-pomo-button" type="button">Pomodoro</button>
+        <button class="nav-button" id="menu-todo-button" type="button">To-Do List</button>
+        <button class="nav-button" id="menu-calc-button" type="button">Kalkulator</button>
+      </nav>
+    </header>
+
+    <!-- Konten Utama -->
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <p class="eyebrow">Ruang alat digital</p>
+        <h1 id="hero-title">Aplikasi praktis,<br><span>untuk keseharian.</span></h1>
+        <p class="intro">Temukan alat sederhana untuk mempermudah pekerjaan sehari-hari. Bangun kebiasaan baik, atur waktu fokus, catat rencana, dan hitung angka dengan cepat.</p>
+        <div class="hero-actions">
+          <a class="launch-button" href="#apps">
+            Jelajahi aplikasi <span class="launch-arrow" aria-hidden="true">↓</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- Katalog Aplikasi -->
+      <section class="catalog" id="apps" aria-labelledby="catalog-title">
+        <div class="catalog-heading">
+          <div>
+            <p class="catalog-kicker">Koleksi alat</p>
+            <h2 class="catalog-title" id="catalog-title">Semua aplikasi</h2>
+            <p class="app-category" id="catalog-summary"></p>
+          </div>
+          <label>
+            <span class="sr-only">Cari aplikasi</span>
+            <input class="search-input" id="app-search" type="search" placeholder="Cari aplikasi..." autocomplete="off">
+          </label>
+        </div>
+        <div class="app-grid" id="app-grid" aria-live="polite"></div>
+        <p class="empty-state" id="empty-state" hidden>Aplikasi tidak ditemukan. Coba kata kunci lain.</p>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <span class="footer-note">
+        <span class="status-dot" aria-hidden="true"></span>
+        Alat baru terus diperbarui di sini
+      </span>
+      <span>Satu ruang, banyak kemungkinan.</span>
+    </footer>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 1: HABIT TRACKER (PELACAK KEBIASAAN)
+       ========================================================================== -->
+  <dialog id="habit-dialog" aria-labelledby="habit-title">
+    <section class="habit-app">
+      <header class="habit-header">
+        <div class="habit-header-left">
+          <span class="habit-header-icon" aria-hidden="true">🎯</span>
+          <div>
+            <h2 class="habit-title" id="habit-title">Habit Tracker</h2>
+            <p class="habit-subtitle">Bangun kebiasaan positif dan jaga streak harian</p>
+          </div>
+        </div>
+        <button class="close-button" id="habit-close-btn" type="button" aria-label="Tutup Habit Tracker">&times;</button>
+      </header>
+
+      <!-- Tanggal Hari Ini & Persentase Selesai -->
+      <div class="habit-summary-card">
+        <div class="habit-summary-top">
+          <span class="habit-today-date" id="habit-today-date">Hari ini</span>
+          <span class="habit-progress-stat" id="habit-progress-stat">0 dari 0 kebiasaan selesai (0%)</span>
+        </div>
+        <div class="habit-progress-track" aria-hidden="true">
+          <div class="habit-progress-fill" id="habit-progress-fill" style="width: 0%;"></div>
+        </div>
+      </div>
+
+      <!-- Form Tambah Kebiasaan Baru -->
+      <div class="habit-form-container">
+        <form class="habit-form" id="habit-form" novalidate>
+          <input
+            class="habit-input"
+            id="habit-input"
+            type="text"
+            placeholder="Tambah kebiasaan baru (misal: Minum air 8 gelas, maks. 100 karakter)..."
+            maxlength="100"
+            autocomplete="off"
+            aria-label="Nama kebiasaan baru"
+          >
+          <button class="habit-add-btn" id="habit-add-btn" type="submit" aria-label="Tambah kebiasaan">
+            Tambah
+          </button>
+        </form>
+        <div class="habit-form-meta">
+          <span class="habit-form-error" id="habit-form-error" role="alert" aria-live="polite"></span>
+          <span class="habit-char-counter" id="habit-char-counter" aria-hidden="true">0 / 100</span>
+        </div>
+      </div>
+
+      <!-- Daftar Kebiasaan -->
+      <div class="habit-list-wrap">
+        <ul class="habit-list" id="habit-list" aria-label="Daftar kebiasaan"></ul>
+      </div>
+
+      <footer class="habit-footer">
+        <span>Klik kotak tanggal untuk mencentang riwayat 7 hari terakhir</span>
+        <span>Pertahankan streak Anda! 🔥</span>
+      </footer>
+    </section>
+  </dialog>
+
+  <!-- ==========================================================================
+       MODAL 2: POMODORO TIMER
+       ========================================================================== -->
+  <dialog id="pomodoro-dialog" aria-labelledby="pomo-title">
+    <section class="pomo-app">
+      <header class="pomo-header">
+        <div class="pomo-header-left">
+          <span class="pomo-header-icon" aria-hidden="true">⏱</span>
+          <div>
+            <h2 class="pomo-title" id="pomo-title">Pomodoro Timer</h2>
+            <p class="pomo-subtitle">Fokus berkualitas dengan jeda teratur</p>
+          </div>
+        </div>
+        <div class="pomo-header-actions">
+          <button class="pomo-icon-btn" id="pomo-settings-toggle" type="button" aria-label="Buka pengaturan durasi timer" title="Pengaturan Durasi">
+            ⚙
+          </button>
+          <button class="close-button" id="pomo-close-btn" type="button" aria-label="Tutup Pomodoro Timer">&times;</button>
+        </div>
+      </header>
+
+      <div class="pomo-modes-wrap">
+        <div class="pomo-modes" role="tablist" aria-label="Mode Pomodoro">
+          <button class="pomo-mode-btn is-active" data-mode="focus" type="button" role="tab" aria-selected="true">Fokus</button>
+          <button class="pomo-mode-btn" data-mode="shortBreak" type="button" role="tab" aria-selected="false">Istirahat Pendek</button>
+          <button class="pomo-mode-btn" data-mode="longBreak" type="button" role="tab" aria-selected="false">Istirahat Panjang</button>
+        </div>
+      </div>
+
+      <div class="pomo-alert" id="pomo-alert" role="alert" aria-live="polite" hidden>
+        <div class="pomo-alert-content">
+          <span class="pomo-alert-icon" id="pomo-alert-icon">🔔</span>
+          <span class="pomo-alert-text" id="pomo-alert-text"></span>
+        </div>
+        <button class="pomo-alert-action-btn" id="pomo-alert-action" type="button" hidden>Mulai Istirahat Panjang</button>
+      </div>
+
+      <div class="pomo-settings-panel" id="pomo-settings-panel" hidden>
+        <form class="pomo-settings-form" id="pomo-settings-form" novalidate>
+          <div class="pomo-settings-title-row">
+            <h3 class="pomo-settings-title">Pengaturan Durasi Timer (Menit)</h3>
+            <button class="pomo-settings-close-btn" id="pomo-settings-close" type="button" aria-label="Tutup pengaturan durasi">&times;</button>
+          </div>
+          <div class="pomo-settings-fields">
+            <label class="pomo-field">
+              <span>Fokus (1–60 mnt)</span>
+              <input type="number" id="pomo-input-focus" min="1" max="60" required>
+            </label>
+            <label class="pomo-field">
+              <span>Istirahat Pendek (1–60 mnt)</span>
+              <input type="number" id="pomo-input-short" min="1" max="60" required>
+            </label>
+            <label class="pomo-field">
+              <span>Istirahat Panjang (1–60 mnt)</span>
+              <input type="number" id="pomo-input-long" min="1" max="60" required>
+            </label>
+          </div>
+          <div class="pomo-settings-error" id="pomo-settings-error" role="alert" aria-live="polite"></div>
+          <div class="pomo-settings-actions">
+            <button class="pomo-btn-save-settings" type="submit">Simpan Durasi</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="pomo-timer-card">
+        <span class="pomo-status-badge" id="pomo-status-badge">Siap</span>
+        <div class="pomo-time-display" id="pomo-time-display" aria-live="polite">25:00</div>
+        <p class="pomo-mode-label" id="pomo-mode-label">Sesi Fokus</p>
+        <div class="pomo-progress-track" aria-hidden="true">
+          <div class="pomo-progress-bar" id="pomo-progress-bar" style="width: 100%;"></div>
+        </div>
+      </div>
+
+      <div class="pomo-controls">
+        <button class="pomo-btn-main" id="pomo-main-btn" type="button" aria-label="Mulai timer">
+          <span id="pomo-main-btn-icon" aria-hidden="true">▶</span>
+          <span id="pomo-main-btn-text">Mulai</span>
+        </button>
+        <button class="pomo-btn-reset" id="pomo-reset-btn" type="button" aria-label="Reset timer ke awal">
+          <span aria-hidden="true">↺</span>
+          <span>Reset</span>
+        </button>
+      </div>
+      <div class="pomo-keyboard-hint">
+        Shortcut keyboard: <kbd>Spasi</kbd> Mulai/Jeda · <kbd>R</kbd> Reset
+      </div>
+
+      <div class="pomo-stats-section">
+        <div class="pomo-stats-grid">
+          <div class="pomo-stat-card">
+            <span class="pomo-stat-value" id="pomo-stat-today">0</span>
+            <span class="pomo-stat-label">Selesai Hari Ini</span>
+          </div>
+          <div class="pomo-stat-card">
+            <span class="pomo-stat-value" id="pomo-stat-total">0</span>
+            <span class="pomo-stat-label">Total Keseluruhan</span>
+          </div>
+          <div class="pomo-stat-card">
+            <span class="pomo-stat-value" id="pomo-stat-cycle">0 / 4</span>
+            <span class="pomo-stat-label">Siklus 4 Pomodoro</span>
+          </div>
+        </div>
+        <div class="pomo-stats-footer">
+          <span class="pomo-stats-tip">Selesai hari ini direset otomatis tiap ganti tanggal</span>
+          <button class="pomo-btn-reset-stats" id="pomo-reset-stats-btn" type="button" aria-label="Reset statistik Pomodoro">
+            Reset Statistik
+          </button>
+        </div>
+      </div>
+    </section>
+  </dialog>
+
+  <!-- ==========================================================================
+       MODAL 3: TO-DO LIST (TASK TRACKER)
+       ========================================================================== -->
+  <dialog id="todo-dialog" aria-labelledby="todo-title">
+    <section class="todo-app">
+      <header class="todo-header">
+        <div class="todo-header-info">
+          <span class="todo-header-icon" aria-hidden="true">✓</span>
+          <div>
+            <h2 class="todo-title" id="todo-title">To-Do List</h2>
+            <p class="todo-subtitle">Kelola dan selesaikan tugas harian Anda</p>
+          </div>
+        </div>
+        <button class="close-button" id="todo-close-btn" type="button" aria-label="Tutup To-Do List">&times;</button>
+      </header>
+
+      <div class="todo-form-container">
+        <form class="todo-form" id="todo-form" novalidate>
+          <input
+            class="todo-input"
+            id="todo-input"
+            type="text"
+            placeholder="Tulis tugas baru (maks. 200 karakter)..."
+            maxlength="200"
+            autocomplete="off"
+            aria-label="Teks tugas baru"
+          >
+          <button class="todo-add-btn" id="todo-add-btn" type="submit" aria-label="Tambah tugas baru">
+            Tambah
+          </button>
+        </form>
+        <div class="todo-form-meta">
+          <span class="todo-form-error" id="todo-form-error" role="alert" aria-live="polite"></span>
+          <span class="todo-char-counter" id="todo-char-counter" aria-hidden="true">0 / 200</span>
+        </div>
+      </div>
+
+      <div class="todo-toolbar">
+        <div class="todo-filters" role="group" aria-label="Filter daftar tugas">
+          <button class="filter-btn is-active" data-filter="all" type="button" aria-pressed="true">Semua</button>
+          <button class="filter-btn" data-filter="active" type="button" aria-pressed="false">Aktif</button>
+          <button class="filter-btn" data-filter="completed" type="button" aria-pressed="false">Selesai</button>
+        </div>
+        <div class="todo-stats" id="todo-count" aria-live="polite">0 tugas tersisa</div>
+      </div>
+
+      <div class="todo-list-wrap">
+        <ul class="todo-list" id="todo-list" aria-label="Daftar item tugas"></ul>
+      </div>
+
+      <footer class="todo-footer">
+        <span class="todo-tips">Klik 2x teks atau gunakan tombol edit</span>
+        <button class="todo-clear-completed-btn" id="todo-clear-completed" type="button" aria-label="Hapus semua tugas yang sudah selesai">
+          Hapus yang selesai
+        </button>
+      </footer>
+    </section>
+  </dialog>
+
+  <!-- ==========================================================================
+       MODAL 4: KALKULATOR
+       ========================================================================== -->
+  <dialog id="calculator-dialog" aria-labelledby="calc-title">
+    <section class="calculator">
+      <header class="calc-header">
+        <h2 class="calc-title" id="calc-title">Kalkulator</h2>
+        <button class="close-button" id="calc-close-btn" type="button" aria-label="Tutup kalkulator">&times;</button>
+      </header>
+      <div class="display" aria-live="polite" aria-atomic="true">
+        <div class="expression" id="expression"></div>
+        <div class="result" id="result">0</div>
+      </div>
+      <div class="keys" id="keys" aria-label="Tombol kalkulator">
+        <button class="key utility" data-action="clear" type="button">AC</button>
+        <button class="key utility" data-action="sign" type="button" aria-label="Ubah tanda">+/−</button>
+        <button class="key utility" data-action="percent" type="button">%</button>
+        <button class="key operator" data-operator="÷" type="button" aria-label="Bagi" aria-pressed="false">÷</button>
+        <button class="key" data-digit="7" type="button">7</button>
+        <button class="key" data-digit="8" type="button">8</button>
+        <button class="key" data-digit="9" type="button">9</button>
+        <button class="key operator" data-operator="×" type="button" aria-label="Kali" aria-pressed="false">×</button>
+        <button class="key" data-digit="4" type="button">4</button>
+        <button class="key" data-digit="5" type="button">5</button>
+        <button class="key" data-digit="6" type="button">6</button>
+        <button class="key operator" data-operator="−" type="button" aria-label="Kurang" aria-pressed="false">−</button>
+        <button class="key" data-digit="1" type="button">1</button>
+        <button class="key" data-digit="2" type="button">2</button>
+        <button class="key" data-digit="3" type="button">3</button>
+        <button class="key operator" data-operator="+" type="button" aria-label="Tambah" aria-pressed="false">+</button>
+        <button class="key zero" data-digit="0" type="button">0</button>
+        <button class="key" data-action="decimal" type="button">.</button>
+        <button class="key equals" data-action="equals" type="button">=</button>
+      </div>
+    </section>
+  </dialog>
+
+  <!-- ==========================================================================
+       JAVASCRIPT
+       ========================================================================== -->
+  <script>
+    /* ==========================================================================
+       BAGIAN A: DATA KATALOG APLIKASI
+       ========================================================================== */
+    const applications = [
+      {
+        id: "habit",
+        name: "Habit Tracker",
+        description: "Lacak kebiasaan harian, periksa grid mingguan, dan pertahankan streak berturut-turut.",
+        symbol: "🎯",
+        category: "Produktivitas",
+        status: "Buka aplikasi",
+        available: true,
+      },
+      {
+        id: "pomodoro",
+        name: "Pomodoro Timer",
+        description: "Tingkatkan fokus kerja dan belajar dengan siklus interval dan jeda istirahat teratur.",
+        symbol: "⏱",
+        category: "Produktivitas",
+        status: "Buka aplikasi",
+        available: true,
+      },
+      {
+        id: "todo",
+        name: "To-Do List",
+        description: "Catat target harian, filter status, dan lacak progres pekerjaan.",
+        symbol: "✓",
+        category: "Produktivitas",
+        status: "Buka aplikasi",
+        available: true,
+      },
+      {
+        id: "calculator",
+        name: "Kalkulator",
+        description: "Hitung cepat dengan operasi dasar, persen, dan angka desimal.",
+        symbol: "±",
+        category: "Alat hitung",
+        status: "Buka aplikasi",
+        available: true,
+      },
+      {
+        id: "next-app",
+        name: "Aplikasi berikutnya",
+        description: "Alat baru akan muncul di sini saat sudah siap digunakan.",
+        symbol: "+",
+        category: "Segera hadir",
+        status: "Dalam pengembangan",
+        available: false,
+      },
+    ];
+
+    const appGrid = document.querySelector("#app-grid");
+    const appSearch = document.querySelector("#app-search");
+    const emptyState = document.querySelector("#empty-state");
+    const catalogSummary = document.querySelector("#catalog-summary");
+
+    function createApplicationCard(application) {
+      const card = document.createElement(application.available ? "button" : "article");
+      card.className = `app-card${application.available ? "" : " is-coming-soon"}`;
+      if (application.available) {
+        card.type = "button";
+        card.dataset.appId = application.id;
+        card.setAttribute("aria-label", `Buka ${application.name}`);
+      }
+
+      const top = document.createElement("div");
+      top.className = "app-card-top";
+      const icon = document.createElement("span");
+      icon.className = "app-icon";
+      icon.setAttribute("aria-hidden", "true");
+      icon.textContent = application.symbol;
+      const status = document.createElement("span");
+      status.className = "app-status";
+      status.textContent = application.status;
+      top.append(icon, status);
+
+      const name = document.createElement("h3");
+      name.className = "app-name";
+      name.textContent = application.name;
+      const description = document.createElement("p");
+      description.className = "app-description";
+      description.textContent = application.description;
+
+      const bottom = document.createElement("div");
+      bottom.className = "app-card-bottom";
+      const category = document.createElement("span");
+      category.className = "app-category";
+      category.textContent = application.category;
+      bottom.append(category);
+
+      if (application.available) {
+        const arrow = document.createElement("span");
+        arrow.className = "app-arrow";
+        arrow.setAttribute("aria-hidden", "true");
+        arrow.textContent = "↗";
+        bottom.append(arrow);
+      }
+
+      card.append(top, name, description, bottom);
+      return card;
+    }
+
+    function renderApplications(query = "") {
+      const searchTerm = query.trim().toLocaleLowerCase("id");
+      const matching = applications.filter((app) =>
+        `${app.name} ${app.description} ${app.category}`
+          .toLocaleLowerCase("id")
+          .includes(searchTerm),
+      );
+      appGrid.replaceChildren(...matching.map(createApplicationCard));
+      emptyState.hidden = matching.length > 0;
+    }
+
+    const availableCount = applications.filter((app) => app.available).length;
+    const comingSoonCount = applications.length - availableCount;
+    catalogSummary.textContent = `${availableCount} aplikasi tersedia · ${comingSoonCount} segera hadir`;
+    renderApplications();
+    appSearch.addEventListener("input", () => renderApplications(appSearch.value));
+
+    /* ==========================================================================
+       BAGIAN B: HABIT TRACKER (PELACAK KEBIASAAN)
+       ========================================================================== */
+    const HABIT_STORAGE_KEY = "ruang_aplikasi_habits_v1";
+
+    // Format tanggal lokal YYYY-MM-DD (bukan toISOString berbasis UTC)
+    function getLocalDateString(dateInput = new Date()) {
+      const d = dateInput instanceof Date ? dateInput : new Date(dateInput);
+      const y = d.getFullYear();
+      const m = String(d.getMonth() + 1).padStart(2, "0");
+      const day = String(d.getDate()).padStart(2, "0");
+      return `${y}-${m}-${day}`;
+    }
+
+    // Format tampilan teks tanggal bahasa Indonesia
+    function formatIndonesianDate(dateInput = new Date()) {
+      const d = dateInput instanceof Date ? dateInput : new Date(dateInput);
+      const days = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+      const months = [
+        "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+        "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+      ];
+      return `${days[d.getDay()]}, ${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+    }
+
+    // Mendapatkan daftar 7 hari terakhir (dari 6 hari lalu sampai hari ini)
+    function getLast7Days() {
+      const days = [];
+      const dayNamesShort = ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"];
+      const today = new Date();
+      for (let i = 6; i >= 0; i--) {
+        const d = new Date(today);
+        d.setDate(today.getDate() - i);
+        days.push({
+          dateKey: getLocalDateString(d),
+          dayShort: dayNamesShort[d.getDay()],
+          dayNum: d.getDate(),
+          isToday: i === 0,
+        });
+      }
+      return days;
+    }
+
+    // Hitung streak berturut-turut dari hari ini ke belakang
+    // Jika hari ini belum dicentang, streak tidak langsung hilang sampai hari berikutnya habis!
+    function calculateHabitStreak(history) {
+      if (!history || typeof history !== "object") return 0;
+      let streak = 0;
+      const today = new Date();
+      const todayKey = getLocalDateString(today);
+
+      let checkDate = new Date(today);
+      if (history[todayKey]) {
+        streak++;
+        checkDate.setDate(checkDate.getDate() - 1);
+      } else {
+        // Hari ini belum dicentang: periksa mulai dari kemarin
+        checkDate.setDate(checkDate.getDate() - 1);
+      }
+
+      while (true) {
+        const dateKey = getLocalDateString(checkDate);
+        if (history[dateKey]) {
+          streak++;
+          checkDate.setDate(checkDate.getDate() - 1);
+        } else {
+          break;
+        }
+      }
+      return streak;
+    }
+
+    function loadHabitsFromStorage() {
+      try {
+        const raw = localStorage.getItem(HABIT_STORAGE_KEY);
+        if (!raw) return [];
+        const parsed = JSON.parse(raw);
+        return Array.isArray(parsed) ? parsed : [];
+      } catch (err) {
+        console.warn("Gagal membaca kebiasaan dari localStorage:", err);
+        return [];
+      }
+    }
+
+    function saveHabitsToStorage(habitsArr) {
+      try {
+        localStorage.setItem(HABIT_STORAGE_KEY, JSON.stringify(habitsArr));
+      } catch (err) {
+        console.warn("Gagal menyimpan kebiasaan ke localStorage:", err);
+      }
+    }
+
+    // State Habit Tracker
+    let habits = loadHabitsFromStorage();
+    let editingHabitId = null;
+    let editHabitErrorMsg = "";
+
+    // Elemen DOM Habit Tracker
+    const habitDialog = document.querySelector("#habit-dialog");
+    const menuHabitBtn = document.querySelector("#menu-habit-button");
+    const habitCloseBtn = document.querySelector("#habit-close-btn");
+    const habitTodayDateEl = document.querySelector("#habit-today-date");
+    const habitProgressStatEl = document.querySelector("#habit-progress-stat");
+    const habitProgressFillEl = document.querySelector("#habit-progress-fill");
+    const habitForm = document.querySelector("#habit-form");
+    const habitInput = document.querySelector("#habit-input");
+    const habitFormError = document.querySelector("#habit-form-error");
+    const habitCharCounter = document.querySelector("#habit-char-counter");
+    const habitListElement = document.querySelector("#habit-list");
+
+    function generateHabitId() {
+      if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+        return crypto.randomUUID();
+      }
+      return `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
+    }
+
+    // Fungsi Render Terpusat untuk Habit Tracker
+    function renderHabits() {
+      const todayKey = getLocalDateString();
+      const last7Days = getLast7Days();
+
+      // Perbarui header tanggal
+      habitTodayDateEl.textContent = formatIndonesianDate();
+
+      // Hitung persentase penyelesaian hari ini
+      const totalHabits = habits.length;
+      const completedToday = habits.filter((h) => h.history && h.history[todayKey]).length;
+      const percent = totalHabits > 0 ? Math.round((completedToday / totalHabits) * 100) : 0;
+
+      habitProgressStatEl.textContent = `${completedToday} dari ${totalHabits} kebiasaan selesai (${percent}%)`;
+      habitProgressFillEl.style.width = `${percent}%`;
+
+      // Bersihkan list sebelum render ulang
+      habitListElement.replaceChildren();
+
+      // Jika belum ada kebiasaan
+      if (habits.length === 0) {
+        const emptyLi = document.createElement("li");
+        emptyLi.className = "habit-empty";
+        const emptyTitle = document.createElement("p");
+        emptyTitle.className = "habit-empty-title";
+        emptyTitle.textContent = "Belum ada kebiasaan";
+        const emptyDesc = document.createElement("p");
+        emptyDesc.className = "habit-empty-desc";
+        emptyDesc.textContent = "Tambahkan kebiasaan baru di atas (misal: Minum air 8 gelas) untuk mulai melacak.";
+        emptyLi.append(emptyTitle, emptyDesc);
+        habitListElement.append(emptyLi);
+        return;
+      }
+
+      // Bangun elemen untuk setiap kebiasaan
+      habits.forEach((habit) => {
+        const isEditing = editingHabitId === habit.id;
+        const itemLi = document.createElement("li");
+        itemLi.className = "habit-item";
+        itemLi.dataset.id = habit.id;
+
+        if (isEditing) {
+          // --- MODE EDIT NAMA KEBIASAAN ---
+          const editBox = document.createElement("div");
+          editBox.className = "habit-edit-box";
+
+          const editRow = document.createElement("div");
+          editRow.className = "habit-edit-row";
+
+          const editInput = document.createElement("input");
+          editInput.type = "text";
+          editInput.className = "habit-edit-input";
+          editInput.value = habit.name;
+          editInput.maxLength = 100;
+          editInput.setAttribute("aria-label", "Edit nama kebiasaan");
+
+          const saveBtn = document.createElement("button");
+          saveBtn.type = "button";
+          saveBtn.className = "habit-btn-save";
+          saveBtn.textContent = "Simpan";
+
+          const cancelBtn = document.createElement("button");
+          cancelBtn.type = "button";
+          cancelBtn.className = "habit-btn-cancel";
+          cancelBtn.textContent = "Batal";
+
+          editRow.append(editInput, saveBtn, cancelBtn);
+
+          const hint = document.createElement("span");
+          hint.className = "habit-edit-hint";
+          hint.textContent = "Tekan Enter untuk simpan, Escape untuk batal (maks. 100 karakter).";
+          editBox.append(editRow, hint);
+
+          if (editHabitErrorMsg) {
+            const errSpan = document.createElement("span");
+            errSpan.className = "habit-edit-error";
+            errSpan.textContent = editHabitErrorMsg;
+            editBox.append(errSpan);
+          }
+
+          itemLi.append(editBox);
+
+          const commitEdit = () => {
+            const trimmed = editInput.value.trim();
+            if (trimmed.length === 0) {
+              editHabitErrorMsg = "Nama kebiasaan tidak boleh kosong atau hanya spasi.";
+              renderHabits();
+              return;
+            }
+            if (trimmed.length > 100) {
+              editHabitErrorMsg = "Nama kebiasaan tidak boleh lebih dari 100 karakter.";
+              renderHabits();
+              return;
+            }
+            habit.name = trimmed;
+            editingHabitId = null;
+            editHabitErrorMsg = "";
+            saveHabitsToStorage(habits);
+            renderHabits();
+          };
+
+          const cancelEdit = () => {
+            editingHabitId = null;
+            editHabitErrorMsg = "";
+            renderHabits();
+          };
+
+          saveBtn.addEventListener("click", commitEdit);
+          cancelBtn.addEventListener("click", cancelEdit);
+
+          editInput.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              commitEdit();
+            } else if (e.key === "Escape") {
+              e.preventDefault();
+              cancelEdit();
+            }
+          });
+
+          setTimeout(() => {
+            editInput.focus();
+            editInput.select();
+          }, 0);
+
+        } else {
+          // --- MODE TAMPILAN NORMAL ---
+          const headerDiv = document.createElement("div");
+          headerDiv.className = "habit-item-header";
+
+          const titleWrap = document.createElement("div");
+          titleWrap.className = "habit-item-title-wrap";
+          titleWrap.title = "Klik dua kali untuk mengedit nama";
+
+          const titleH3 = document.createElement("h3");
+          titleH3.className = "habit-item-title";
+          titleH3.textContent = habit.name; // Aman dari XSS (textContent murni)
+
+          const metaDiv = document.createElement("div");
+          metaDiv.className = "habit-item-meta";
+
+          const streak = calculateHabitStreak(habit.history);
+          const streakBadge = document.createElement("span");
+          streakBadge.className = `habit-streak-badge${streak > 0 ? " has-streak" : ""}`;
+          streakBadge.textContent = `🔥 ${streak} hari berturut-turut`;
+
+          metaDiv.append(streakBadge);
+          titleWrap.append(titleH3, metaDiv);
+
+          titleWrap.addEventListener("dblclick", () => {
+            editingHabitId = habit.id;
+            editHabitErrorMsg = "";
+            renderHabits();
+          });
+
+          // Tombol Edit & Hapus
+          const actionsDiv = document.createElement("div");
+          actionsDiv.className = "habit-item-actions";
+
+          const editBtn = document.createElement("button");
+          editBtn.type = "button";
+          editBtn.className = "todo-icon-btn";
+          editBtn.title = "Edit nama kebiasaan";
+          editBtn.setAttribute("aria-label", `Edit kebiasaan "${habit.name}"`);
+          editBtn.innerHTML = `
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+            </svg>
+          `;
+          editBtn.addEventListener("click", () => {
+            editingHabitId = habit.id;
+            editHabitErrorMsg = "";
+            renderHabits();
+          });
+
+          const deleteBtn = document.createElement("button");
+          deleteBtn.type = "button";
+          deleteBtn.className = "todo-icon-btn delete";
+          deleteBtn.title = "Hapus kebiasaan";
+          deleteBtn.setAttribute("aria-label", `Hapus kebiasaan "${habit.name}"`);
+          deleteBtn.innerHTML = `
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+            </svg>
+          `;
+          deleteBtn.addEventListener("click", () => {
+            const confirmed = window.confirm(`Hapus kebiasaan "${habit.name}" beserta seluruh riwayat centangnya?`);
+            if (confirmed) {
+              habits = habits.filter((h) => h.id !== habit.id);
+              if (editingHabitId === habit.id) editingHabitId = null;
+              saveHabitsToStorage(habits);
+              renderHabits();
+            }
+          });
+
+          actionsDiv.append(editBtn, deleteBtn);
+          headerDiv.append(titleWrap, actionsDiv);
+
+          // Baris Pelacakan (Tombol Centang Hari Ini + Grid 7 Hari)
+          const trackingRow = document.createElement("div");
+          trackingRow.className = "habit-tracking-row";
+
+          // Tombol Centang Hari Ini
+          const isDoneToday = Boolean(habit.history && habit.history[todayKey]);
+          const todayBtn = document.createElement("button");
+          todayBtn.type = "button";
+          todayBtn.className = `habit-today-toggle-btn${isDoneToday ? " is-completed" : ""}`;
+          todayBtn.setAttribute(
+            "aria-label",
+            isDoneToday ? `Tandai "${habit.name}" belum selesai hari ini` : `Tandai "${habit.name}" selesai hari ini`
+          );
+          todayBtn.innerHTML = `
+            <span aria-hidden="true">${isDoneToday ? "✓" : "○"}</span>
+            <span>${isDoneToday ? "Selesai Hari Ini" : "Tandai Selesai"}</span>
+          `;
+          todayBtn.addEventListener("click", () => {
+            if (!habit.history) habit.history = {};
+            if (habit.history[todayKey]) {
+              delete habit.history[todayKey];
+            } else {
+              habit.history[todayKey] = true;
+            }
+            saveHabitsToStorage(habits);
+            renderHabits();
+          });
+
+          // Grid 7 Hari Terakhir
+          const weekGrid = document.createElement("div");
+          weekGrid.className = "habit-week-grid";
+          weekGrid.setAttribute("role", "group");
+          weekGrid.setAttribute("aria-label", "Riwayat centang 7 hari terakhir");
+
+          last7Days.forEach((dayInfo) => {
+            const isChecked = Boolean(habit.history && habit.history[dayInfo.dateKey]);
+            const cell = document.createElement("button");
+            cell.type = "button";
+            cell.className = `habit-day-cell${isChecked ? " is-checked" : ""}${dayInfo.isToday ? " is-today" : ""}`;
+            cell.title = `${dayInfo.dayShort}, ${dayInfo.dayNum} (${isChecked ? "Selesai" : "Belum selesai"})`;
+            cell.setAttribute("aria-label", `${dayInfo.dayShort} ${dayInfo.dayNum}: ${isChecked ? "Selesai" : "Belum selesai"}`);
+
+            const nameSpan = document.createElement("span");
+            nameSpan.className = "habit-day-name";
+            nameSpan.textContent = dayInfo.dayShort;
+
+            const numSpan = document.createElement("span");
+            numSpan.className = "habit-day-num";
+            numSpan.textContent = String(dayInfo.dayNum);
+
+            const checkSpan = document.createElement("span");
+            checkSpan.className = "habit-day-check";
+            checkSpan.textContent = isChecked ? "✓" : "";
+
+            cell.append(nameSpan, numSpan, checkSpan);
+
+            // Klik cell untuk toggle centang pada tanggal bersangkutan
+            cell.addEventListener("click", () => {
+              if (!habit.history) habit.history = {};
+              if (habit.history[dayInfo.dateKey]) {
+                delete habit.history[dayInfo.dateKey];
+              } else {
+                habit.history[dayInfo.dateKey] = true;
+              }
+              saveHabitsToStorage(habits);
+              renderHabits();
+            });
+
+            weekGrid.append(cell);
+          });
+
+          trackingRow.append(todayBtn, weekGrid);
+          itemLi.append(headerDiv, trackingRow);
+        }
+
+        habitListElement.append(itemLi);
+      });
+    }
+
+    // Tambah Kebiasaan Baru
+    function handleAddHabit(event) {
+      if (event) event.preventDefault();
+      const rawText = habitInput.value;
+      const trimmedText = rawText.trim();
+
+      if (trimmedText.length === 0) {
+        habitFormError.textContent = "Nama kebiasaan tidak boleh kosong atau hanya spasi.";
+        habitInput.focus();
+        return;
+      }
+
+      if (trimmedText.length > 100) {
+        habitFormError.textContent = "Nama kebiasaan dibatasi maksimal 100 karakter.";
+        habitInput.focus();
+        return;
+      }
+
+      habitFormError.textContent = "";
+      const newHabit = {
+        id: generateHabitId(),
+        name: trimmedText,
+        createdAt: Date.now(),
+        history: {},
+      };
+
+      habits.unshift(newHabit);
+      saveHabitsToStorage(habits);
+      habitInput.value = "";
+      updateHabitCharCounter();
+      renderHabits();
+      habitInput.focus();
+    }
+
+    function updateHabitCharCounter() {
+      const len = habitInput.value.length;
+      habitCharCounter.textContent = `${len} / 100`;
+      if (len > 100) {
+        habitFormError.textContent = "Jumlah karakter melebihi batas 100 karakter.";
+      } else if (habitFormError.textContent.includes("100")) {
+        habitFormError.textContent = "";
+      }
+    }
+
+    habitForm.addEventListener("submit", handleAddHabit);
+    habitInput.addEventListener("input", () => {
+      updateHabitCharCounter();
+      if (habitInput.value.trim().length > 0 && !habitFormError.textContent.includes("100")) {
+        habitFormError.textContent = "";
+      }
+    });
+
+    function openHabitTracker() {
+      habitDialog.showModal();
+      renderHabits();
+      setTimeout(() => habitInput.focus(), 50);
+    }
+
+    function closeHabitTracker() {
+      habitDialog.close();
+      editingHabitId = null;
+      editHabitErrorMsg = "";
+      habitFormError.textContent = "";
+    }
+
+    menuHabitBtn.addEventListener("click", openHabitTracker);
+    habitCloseBtn.addEventListener("click", closeHabitTracker);
+    habitDialog.addEventListener("click", (e) => {
+      if (e.target === habitDialog) closeHabitTracker();
+    });
+
+    // Render Awal Habit Tracker
+    renderHabits();
+
+    /* ==========================================================================
+       BAGIAN C: POMODORO TIMER (INTERVAL AKURAT & WEB AUDIO API)
+       ========================================================================== */
+    const POMO_SETTINGS_KEY = "ruang_aplikasi_pomo_settings_v1";
+    const POMO_STATS_KEY = "ruang_aplikasi_pomo_stats_v1";
+
+    const defaultPomoSettings = {
+      focus: 25,
+      shortBreak: 5,
+      longBreak: 15,
+    };
+
+    function loadPomoSettings() {
+      try {
+        const raw = localStorage.getItem(POMO_SETTINGS_KEY);
+        if (!raw) return { ...defaultPomoSettings };
+        const parsed = JSON.parse(raw);
+        return {
+          focus: Number(parsed.focus) || 25,
+          shortBreak: Number(parsed.shortBreak) || 5,
+          longBreak: Number(parsed.longBreak) || 15,
+        };
+      } catch (err) {
+        console.warn("Gagal memuat pengaturan Pomodoro:", err);
+        return { ...defaultPomoSettings };
+      }
+    }
+
+    function savePomoSettings(settingsObj) {
+      try {
+        localStorage.setItem(POMO_SETTINGS_KEY, JSON.stringify(settingsObj));
+      } catch (err) {
+        console.warn("Gagal menyimpan pengaturan Pomodoro:", err);
+      }
+    }
+
+    function loadPomoStats() {
+      const todayStr = getLocalDateString();
+      try {
+        const raw = localStorage.getItem(POMO_STATS_KEY);
+        if (!raw) {
+          return { today: 0, total: 0, cycleCount: 0, lastDate: todayStr };
+        }
+        const parsed = JSON.parse(raw);
+        const stats = {
+          today: Number(parsed.today) || 0,
+          total: Number(parsed.total) || 0,
+          cycleCount: Number(parsed.cycleCount) || 0,
+          lastDate: parsed.lastDate || todayStr,
+        };
+        if (stats.lastDate !== todayStr) {
+          stats.today = 0;
+          stats.lastDate = todayStr;
+          savePomoStats(stats);
+        }
+        return stats;
+      } catch (err) {
+        console.warn("Gagal memuat statistik Pomodoro:", err);
+        return { today: 0, total: 0, cycleCount: 0, lastDate: todayStr };
+      }
+    }
+
+    function savePomoStats(statsObj) {
+      try {
+        localStorage.setItem(POMO_STATS_KEY, JSON.stringify(statsObj));
+      } catch (err) {
+        console.warn("Gagal menyimpan statistik Pomodoro:", err);
+      }
+    }
+
+    function playBeepNotification() {
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        const ctx = new AudioCtx();
+        const now = ctx.currentTime;
+
+        const playTone = (freq, startTime, duration) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = "sine";
+          osc.frequency.setValueAtTime(freq, startTime);
+
+          gain.gain.setValueAtTime(0, startTime);
+          gain.gain.linearRampToValueAtTime(0.25, startTime + 0.02);
+          gain.gain.exponentialRampToValueAtTime(0.001, startTime + duration);
+
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(startTime);
+          osc.stop(startTime + duration);
+        };
+
+        playTone(660, now, 0.18);
+        playTone(880, now + 0.22, 0.28);
+      } catch (err) {
+        console.warn("Web Audio API tidak didukung atau terblokir:", err);
+      }
+    }
+
+    let pomoSettings = loadPomoSettings();
+    let pomoStats = loadPomoStats();
+    let currentPomoMode = "focus";
+    let isPomoRunning = false;
+    let pomoRemainingSeconds = pomoSettings[currentPomoMode] * 60;
+    let pomoEndTime = null;
+    let pomoInterval = null;
+    let pomoAlertMessage = "";
+    let pomoShowLongBreakSuggestion = false;
+
+    const pomoDialog = document.querySelector("#pomodoro-dialog");
+    const menuPomoBtn = document.querySelector("#menu-pomo-button");
+    const pomoCloseBtn = document.querySelector("#pomo-close-btn");
+    const pomoModeBtns = document.querySelectorAll(".pomo-mode-btn");
+    const pomoTimeDisplay = document.querySelector("#pomo-time-display");
+    const pomoModeLabel = document.querySelector("#pomo-mode-label");
+    const pomoStatusBadge = document.querySelector("#pomo-status-badge");
+    const pomoProgressBar = document.querySelector("#pomo-progress-bar");
+    const pomoMainBtn = document.querySelector("#pomo-main-btn");
+    const pomoMainBtnIcon = document.querySelector("#pomo-main-btn-icon");
+    const pomoMainBtnText = document.querySelector("#pomo-main-btn-text");
+    const pomoResetBtn = document.querySelector("#pomo-reset-btn");
+    const pomoAlert = document.querySelector("#pomo-alert");
+    const pomoAlertText = document.querySelector("#pomo-alert-text");
+    const pomoAlertAction = document.querySelector("#pomo-alert-action");
+    const pomoStatToday = document.querySelector("#pomo-stat-today");
+    const pomoStatTotal = document.querySelector("#pomo-stat-total");
+    const pomoStatCycle = document.querySelector("#pomo-stat-cycle");
+    const pomoResetStatsBtn = document.querySelector("#pomo-reset-stats-btn");
+    const pomoSettingsToggle = document.querySelector("#pomo-settings-toggle");
+    const pomoSettingsPanel = document.querySelector("#pomo-settings-panel");
+    const pomoSettingsClose = document.querySelector("#pomo-settings-close");
+    const pomoSettingsForm = document.querySelector("#pomo-settings-form");
+    const pomoInputFocus = document.querySelector("#pomo-input-focus");
+    const pomoInputShort = document.querySelector("#pomo-input-short");
+    const pomoInputLong = document.querySelector("#pomo-input-long");
+    const pomoSettingsError = document.querySelector("#pomo-settings-error");
+
+    const modeLabels = {
+      focus: "Sesi Fokus",
+      shortBreak: "Istirahat Pendek",
+      longBreak: "Istirahat Panjang",
+    };
+
+    function formatTimeMMSS(totalSec) {
+      const safe = Math.max(0, totalSec);
+      const m = Math.floor(safe / 60);
+      const s = safe % 60;
+      return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+    }
+
+    function renderPomodoro() {
+      const todayStr = getLocalDateString();
+      if (pomoStats.lastDate !== todayStr) {
+        pomoStats.today = 0;
+        pomoStats.lastDate = todayStr;
+        savePomoStats(pomoStats);
+      }
+
+      const timeStr = formatTimeMMSS(pomoRemainingSeconds);
+      pomoTimeDisplay.textContent = timeStr;
+      pomoModeLabel.textContent = modeLabels[currentPomoMode];
+
+      pomoModeBtns.forEach((btn) => {
+        const isActive = btn.dataset.mode === currentPomoMode;
+        btn.classList.toggle("is-active", isActive);
+        btn.setAttribute("aria-selected", String(isActive));
+      });
+
+      if (isPomoRunning) {
+        pomoStatusBadge.textContent = "Berjalan";
+        pomoStatusBadge.className = "pomo-status-badge is-running";
+        pomoMainBtn.className = "pomo-btn-main is-running";
+        pomoMainBtnIcon.textContent = "⏸";
+        pomoMainBtnText.textContent = "Jeda";
+        pomoMainBtn.setAttribute("aria-label", "Jeda timer");
+      } else {
+        const totalSec = pomoSettings[currentPomoMode] * 60;
+        const isPaused = pomoRemainingSeconds > 0 && pomoRemainingSeconds < totalSec;
+        pomoStatusBadge.textContent = isPaused ? "Dijeda" : "Siap";
+        pomoStatusBadge.className = `pomo-status-badge${isPaused ? " is-paused" : ""}`;
+        pomoMainBtn.className = "pomo-btn-main";
+        pomoMainBtnIcon.textContent = "▶";
+        pomoMainBtnText.textContent = isPaused ? "Lanjutkan" : "Mulai";
+        pomoMainBtn.setAttribute("aria-label", isPaused ? "Lanjutkan timer" : "Mulai timer");
+      }
+
+      const totalModeSec = (pomoSettings[currentPomoMode] || 25) * 60;
+      const progressPercent = Math.min(100, Math.max(0, (pomoRemainingSeconds / totalModeSec) * 100));
+      pomoProgressBar.style.width = `${progressPercent}%`;
+
+      if (pomoAlertMessage) {
+        pomoAlert.hidden = false;
+        pomoAlertText.textContent = pomoAlertMessage;
+        if (pomoShowLongBreakSuggestion) {
+          pomoAlertAction.hidden = false;
+          pomoAlertAction.textContent = "Mulai Istirahat Panjang";
+        } else {
+          pomoAlertAction.hidden = true;
+        }
+      } else {
+        pomoAlert.hidden = true;
+      }
+
+      pomoStatToday.textContent = String(pomoStats.today);
+      pomoStatTotal.textContent = String(pomoStats.total);
+      const cycleMod = (pomoStats.cycleCount % 4) || (pomoStats.cycleCount > 0 && pomoStats.cycleCount % 4 === 0 ? 4 : 0);
+      pomoStatCycle.textContent = `${cycleMod} / 4`;
+
+      if (isPomoRunning || pomoDialog.open) {
+        const currentModeName = currentPomoMode === "focus"
+          ? "Fokus"
+          : currentPomoMode === "shortBreak"
+          ? "Istirahat Pendek"
+          : "Istirahat Panjang";
+        document.title = `${timeStr} - ${currentModeName}`;
+      } else {
+        document.title = "Ruang Aplikasi";
+      }
+    }
+
+    function clearPomoInterval() {
+      if (pomoInterval) {
+        clearInterval(pomoInterval);
+        pomoInterval = null;
+      }
+    }
+
+    function startPomodoro() {
+      if (isPomoRunning) return;
+      isPomoRunning = true;
+      pomoEndTime = Date.now() + pomoRemainingSeconds * 1000;
+
+      clearPomoInterval();
+      pomoInterval = setInterval(() => {
+        if (!pomoEndTime) return;
+        const diffMs = pomoEndTime - Date.now();
+        const secondsLeft = Math.max(0, Math.ceil(diffMs / 1000));
+        pomoRemainingSeconds = secondsLeft;
+
+        if (pomoRemainingSeconds <= 0) {
+          clearPomoInterval();
+          isPomoRunning = false;
+          pomoEndTime = null;
+          handlePomodoroCompleted();
+        }
+        renderPomodoro();
+      }, 250);
+
+      renderPomodoro();
+    }
+
+    function pausePomodoro() {
+      if (!isPomoRunning) return;
+      isPomoRunning = false;
+      if (pomoEndTime) {
+        pomoRemainingSeconds = Math.max(0, Math.ceil((pomoEndTime - Date.now()) / 1000));
+      }
+      pomoEndTime = null;
+      clearPomoInterval();
+      renderPomodoro();
+    }
+
+    function togglePomodoro() {
+      if (isPomoRunning) pausePomodoro();
+      else startPomodoro();
+    }
+
+    function resetPomodoro() {
+      isPomoRunning = false;
+      pomoEndTime = null;
+      clearPomoInterval();
+      pomoRemainingSeconds = (pomoSettings[currentPomoMode] || 25) * 60;
+      pomoAlertMessage = "";
+      pomoShowLongBreakSuggestion = false;
+      renderPomodoro();
+    }
+
+    function switchPomoMode(newMode) {
+      if (newMode === currentPomoMode) return;
+      if (isPomoRunning) {
+        const confirmed = window.confirm("Timer sedang berjalan. Yakin ingin mengganti mode dan mereset timer?");
+        if (!confirmed) return;
+      }
+      isPomoRunning = false;
+      pomoEndTime = null;
+      clearPomoInterval();
+      currentPomoMode = newMode;
+      pomoRemainingSeconds = (pomoSettings[newMode] || 25) * 60;
+      pomoAlertMessage = "";
+      pomoShowLongBreakSuggestion = false;
+      renderPomodoro();
+    }
+
+    function handlePomodoroCompleted() {
+      playBeepNotification();
+
+      if (currentPomoMode === "focus") {
+        pomoStats.today += 1;
+        pomoStats.total += 1;
+        pomoStats.cycleCount += 1;
+        savePomoStats(pomoStats);
+
+        if (pomoStats.cycleCount > 0 && pomoStats.cycleCount % 4 === 0) {
+          pomoAlertMessage = "Hebat! Anda telah menyelesaikan 4 Pomodoro. Disarankan mengambil Istirahat Panjang.";
+          pomoShowLongBreakSuggestion = true;
+        } else {
+          pomoAlertMessage = "Sesi Fokus selesai! Waktunya Istirahat Pendek untuk menyegarkan pikiran.";
+          pomoShowLongBreakSuggestion = false;
+        }
+      } else {
+        pomoAlertMessage = "Waktu istirahat selesai! Siap untuk kembali ke Sesi Fokus?";
+        pomoShowLongBreakSuggestion = false;
+      }
+
+      pomoRemainingSeconds = (pomoSettings[currentPomoMode] || 25) * 60;
+      renderPomodoro();
+    }
+
+    pomoAlertAction.addEventListener("click", () => {
+      switchPomoMode("longBreak");
+      startPomodoro();
+    });
+
+    pomoMainBtn.addEventListener("click", togglePomodoro);
+    pomoResetBtn.addEventListener("click", resetPomodoro);
+
+    pomoModeBtns.forEach((btn) => {
+      btn.addEventListener("click", () => switchPomoMode(btn.dataset.mode));
+    });
+
+    pomoResetStatsBtn.addEventListener("click", () => {
+      const confirmed = window.confirm("Apakah Anda yakin ingin mereset statistik Pomodoro (hari ini dan total)?");
+      if (confirmed) {
+        pomoStats.today = 0;
+        pomoStats.total = 0;
+        pomoStats.cycleCount = 0;
+        pomoStats.lastDate = getLocalDateString();
+        savePomoStats(pomoStats);
+        renderPomodoro();
+      }
+    });
+
+    function populatePomoSettingsInputs() {
+      pomoInputFocus.value = pomoSettings.focus;
+      pomoInputShort.value = pomoSettings.shortBreak;
+      pomoInputLong.value = pomoSettings.longBreak;
+      pomoSettingsError.textContent = "";
+    }
+
+    pomoSettingsToggle.addEventListener("click", () => {
+      const isHidden = pomoSettingsPanel.hidden;
+      pomoSettingsPanel.hidden = !isHidden;
+      if (!pomoSettingsPanel.hidden) {
+        populatePomoSettingsInputs();
+        pomoInputFocus.focus();
+      }
+    });
+
+    pomoSettingsClose.addEventListener("click", () => {
+      pomoSettingsPanel.hidden = true;
+    });
+
+    pomoSettingsForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const focusVal = Number.parseInt(pomoInputFocus.value, 10);
+      const shortVal = Number.parseInt(pomoInputShort.value, 10);
+      const longVal = Number.parseInt(pomoInputLong.value, 10);
+
+      const isValid = (n) => Number.isInteger(n) && n >= 1 && n <= 60;
+      if (!isValid(focusVal) || !isValid(shortVal) || !isValid(longVal)) {
+        pomoSettingsError.textContent = "Semua durasi harus berupa angka bulat antara 1 sampai 60 menit.";
+        return;
+      }
+
+      pomoSettings = { focus: focusVal, shortBreak: shortVal, longBreak: longVal };
+      savePomoSettings(pomoSettings);
+      pomoSettingsError.textContent = "";
+      pomoSettingsPanel.hidden = true;
+
+      if (!isPomoRunning) {
+        pomoRemainingSeconds = pomoSettings[currentPomoMode] * 60;
+      }
+      renderPomodoro();
+    });
+
+    function openPomodoro() {
+      pomoDialog.showModal();
+      renderPomodoro();
+    }
+
+    function closePomodoro() {
+      pomoDialog.close();
+      pomoSettingsPanel.hidden = true;
+      if (!isPomoRunning) {
+        document.title = "Ruang Aplikasi";
+      }
+    }
+
+    menuPomoBtn.addEventListener("click", openPomodoro);
+    pomoCloseBtn.addEventListener("click", closePomodoro);
+    pomoDialog.addEventListener("click", (e) => {
+      if (e.target === pomoDialog) closePomodoro();
+    });
+
+    renderPomodoro();
+
+    /* ==========================================================================
+       BAGIAN D: DATA & LOGIKA TO-DO LIST / TASK TRACKER
+       ========================================================================== */
+    const TODO_STORAGE_KEY = "ruang_aplikasi_todos_v1";
+
+    function loadTodosFromStorage() {
+      try {
+        const raw = localStorage.getItem(TODO_STORAGE_KEY);
+        if (!raw) return [];
+        const parsed = JSON.parse(raw);
+        return Array.isArray(parsed) ? parsed : [];
+      } catch (error) {
+        console.warn("Gagal membaca dari localStorage:", error);
+        return [];
+      }
+    }
+
+    function saveTodosToStorage(todosArray) {
+      try {
+        localStorage.setItem(TODO_STORAGE_KEY, JSON.stringify(todosArray));
+      } catch (error) {
+        console.warn("Gagal menyimpan ke localStorage:", error);
+      }
+    }
+
+    let todos = loadTodosFromStorage();
+    let currentTodoFilter = "all";
+    let editingTodoId = null;
+    let editErrorMsg = "";
+
+    const todoDialog = document.querySelector("#todo-dialog");
+    const todoForm = document.querySelector("#todo-form");
+    const todoInput = document.querySelector("#todo-input");
+    const todoFormError = document.querySelector("#todo-form-error");
+    const todoCharCounter = document.querySelector("#todo-char-counter");
+    const todoListElement = document.querySelector("#todo-list");
+    const todoCountElement = document.querySelector("#todo-count");
+    const todoFilterButtons = document.querySelectorAll(".todo-filters .filter-btn");
+    const todoClearCompletedBtn = document.querySelector("#todo-clear-completed");
+    const todoCloseBtn = document.querySelector("#todo-close-btn");
+    const menuTodoBtn = document.querySelector("#menu-todo-button");
+
+    function generateTodoId() {
+      if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+        return crypto.randomUUID();
+      }
+      return `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
+    }
+
+    function renderTodoList() {
+      const activeCount = todos.filter((t) => !t.completed).length;
+      const completedCount = todos.length - activeCount;
+
+      todoCountElement.textContent = `${activeCount} tugas tersisa`;
+      todoClearCompletedBtn.disabled = completedCount === 0;
+
+      todoFilterButtons.forEach((btn) => {
+        const isActive = btn.dataset.filter === currentTodoFilter;
+        btn.classList.toggle("is-active", isActive);
+        btn.setAttribute("aria-pressed", String(isActive));
+      });
+
+      let filteredTodos = todos;
+      if (currentTodoFilter === "active") filteredTodos = todos.filter((t) => !t.completed);
+      else if (currentTodoFilter === "completed") filteredTodos = todos.filter((t) => t.completed);
+
+      todoListElement.replaceChildren();
+
+      if (todos.length === 0) {
+        const emptyLi = document.createElement("li");
+        emptyLi.className = "todo-empty";
+        const emptyTitle = document.createElement("p");
+        emptyTitle.className = "todo-empty-title";
+        emptyTitle.textContent = "Belum ada tugas";
+        const emptyDesc = document.createElement("p");
+        emptyDesc.className = "todo-empty-desc";
+        emptyDesc.textContent = "Tulis tugas baru di atas dan tekan Enter atau tombol Tambah.";
+        emptyLi.append(emptyTitle, emptyDesc);
+        todoListElement.append(emptyLi);
+        return;
+      }
+
+      if (filteredTodos.length === 0) {
+        const emptyFilterLi = document.createElement("li");
+        emptyFilterLi.className = "todo-empty";
+        const emptyTitle = document.createElement("p");
+        emptyTitle.className = "todo-empty-title";
+        emptyTitle.textContent = currentTodoFilter === "active"
+          ? "Tidak ada tugas aktif"
+          : "Tidak ada tugas yang selesai";
+        emptyFilterLi.append(emptyTitle);
+        todoListElement.append(emptyFilterLi);
+        return;
+      }
+
+      filteredTodos.forEach((todo) => {
+        const isEditing = editingTodoId === todo.id;
+        const itemLi = document.createElement("li");
+        itemLi.className = `todo-item${todo.completed ? " is-completed" : ""}`;
+        itemLi.dataset.id = todo.id;
+
+        if (isEditing) {
+          const editBox = document.createElement("div");
+          editBox.className = "todo-edit-box";
+
+          const editRow = document.createElement("div");
+          editRow.className = "todo-edit-row";
+
+          const editInput = document.createElement("input");
+          editInput.type = "text";
+          editInput.className = "todo-edit-input";
+          editInput.value = todo.text;
+          editInput.maxLength = 200;
+          editInput.setAttribute("aria-label", "Edit teks tugas");
+
+          const saveBtn = document.createElement("button");
+          saveBtn.type = "button";
+          saveBtn.className = "todo-btn-save";
+          saveBtn.textContent = "Simpan";
+
+          const cancelBtn = document.createElement("button");
+          cancelBtn.type = "button";
+          cancelBtn.className = "todo-btn-cancel";
+          cancelBtn.textContent = "Batal";
+
+          editRow.append(editInput, saveBtn, cancelBtn);
+
+          const hint = document.createElement("span");
+          hint.className = "todo-edit-hint";
+          hint.textContent = "Tekan Enter untuk simpan, Escape untuk batal (maks. 200 karakter).";
+          editBox.append(editRow, hint);
+
+          if (editErrorMsg) {
+            const errorSpan = document.createElement("span");
+            errorSpan.className = "todo-edit-error";
+            errorSpan.textContent = editErrorMsg;
+            editBox.append(errorSpan);
+          }
+
+          itemLi.append(editBox);
+
+          const commitEdit = () => {
+            const newText = editInput.value.trim();
+            if (newText.length === 0) {
+              editErrorMsg = "Teks tugas tidak boleh kosong atau hanya spasi.";
+              renderTodoList();
+              return;
+            }
+            if (newText.length > 200) {
+              editErrorMsg = "Teks tugas tidak boleh lebih dari 200 karakter.";
+              renderTodoList();
+              return;
+            }
+            todo.text = newText;
+            editingTodoId = null;
+            editErrorMsg = "";
+            saveTodosToStorage(todos);
+            renderTodoList();
+          };
+
+          const cancelEdit = () => {
+            editingTodoId = null;
+            editErrorMsg = "";
+            renderTodoList();
+          };
+
+          saveBtn.addEventListener("click", commitEdit);
+          cancelBtn.addEventListener("click", cancelEdit);
+
+          editInput.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              commitEdit();
+            } else if (e.key === "Escape") {
+              e.preventDefault();
+              cancelEdit();
+            }
+          });
+
+          setTimeout(() => {
+            editInput.focus();
+            editInput.select();
+          }, 0);
+
+        } else {
+          const checkbox = document.createElement("input");
+          checkbox.type = "checkbox";
+          checkbox.className = "todo-checkbox";
+          checkbox.checked = todo.completed;
+          checkbox.setAttribute(
+            "aria-label",
+            todo.completed ? `Tandai "${todo.text}" belum selesai` : `Tandai "${todo.text}" selesai`,
+          );
+          checkbox.addEventListener("change", () => {
+            todo.completed = checkbox.checked;
+            saveTodosToStorage(todos);
+            renderTodoList();
+          });
+
+          const textWrap = document.createElement("div");
+          textWrap.className = "todo-text-wrap";
+          textWrap.title = "Klik dua kali untuk mengedit";
+
+          const textSpan = document.createElement("p");
+          textSpan.className = "todo-text";
+          textSpan.textContent = todo.text;
+          textWrap.append(textSpan);
+
+          textWrap.addEventListener("dblclick", () => {
+            editingTodoId = todo.id;
+            editErrorMsg = "";
+            renderTodoList();
+          });
+
+          const actionsDiv = document.createElement("div");
+          actionsDiv.className = "todo-actions";
+
+          const editBtn = document.createElement("button");
+          editBtn.type = "button";
+          editBtn.className = "todo-icon-btn";
+          editBtn.title = "Edit tugas";
+          editBtn.setAttribute("aria-label", `Edit tugas "${todo.text}"`);
+          editBtn.innerHTML = `
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+            </svg>
+          `;
+          editBtn.addEventListener("click", () => {
+            editingTodoId = todo.id;
+            editErrorMsg = "";
+            renderTodoList();
+          });
+
+          const deleteBtn = document.createElement("button");
+          deleteBtn.type = "button";
+          deleteBtn.className = "todo-icon-btn delete";
+          deleteBtn.title = "Hapus tugas";
+          deleteBtn.setAttribute("aria-label", `Hapus tugas "${todo.text}"`);
+          deleteBtn.innerHTML = `
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+            </svg>
+          `;
+          deleteBtn.addEventListener("click", () => {
+            const confirmed = window.confirm(`Apakah Anda yakin ingin menghapus tugas "${todo.text}"?`);
+            if (confirmed) {
+              todos = todos.filter((item) => item.id !== todo.id);
+              if (editingTodoId === todo.id) editingTodoId = null;
+              saveTodosToStorage(todos);
+              renderTodoList();
+            }
+          });
+
+          actionsDiv.append(editBtn, deleteBtn);
+          itemLi.append(checkbox, textWrap, actionsDiv);
+        }
+
+        todoListElement.append(itemLi);
+      });
+    }
+
+    function handleAddTodo(event) {
+      if (event) event.preventDefault();
+      const rawText = todoInput.value;
+      const trimmedText = rawText.trim();
+
+      if (trimmedText.length === 0) {
+        todoFormError.textContent = "Tugas tidak boleh kosong atau hanya berisi spasi.";
+        todoInput.focus();
+        return;
+      }
+
+      if (trimmedText.length > 200) {
+        todoFormError.textContent = "Tugas dibatasi maksimal 200 karakter.";
+        todoInput.focus();
+        return;
+      }
+
+      todoFormError.textContent = "";
+      const newTodo = {
+        id: generateTodoId(),
+        text: trimmedText,
+        completed: false,
+        createdAt: Date.now(),
+      };
+
+      todos.unshift(newTodo);
+      saveTodosToStorage(todos);
+      todoInput.value = "";
+      updateTodoCharCounter();
+      renderTodoList();
+      todoInput.focus();
+    }
+
+    function updateTodoCharCounter() {
+      const len = todoInput.value.length;
+      todoCharCounter.textContent = `${len} / 200`;
+      if (len > 200) {
+        todoFormError.textContent = "Jumlah karakter melebihi batas 200 karakter.";
+      } else if (todoFormError.textContent.includes("200")) {
+        todoFormError.textContent = "";
+      }
+    }
+
+    todoForm.addEventListener("submit", handleAddTodo);
+    todoInput.addEventListener("input", () => {
+      updateTodoCharCounter();
+      if (todoInput.value.trim().length > 0 && !todoFormError.textContent.includes("200")) {
+        todoFormError.textContent = "";
+      }
+    });
+
+    todoFilterButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        currentTodoFilter = btn.dataset.filter;
+        renderTodoList();
+      });
+    });
+
+    todoClearCompletedBtn.addEventListener("click", () => {
+      const completedCount = todos.filter((t) => t.completed).length;
+      if (completedCount === 0) return;
+      const confirmed = window.confirm(`Hapus ${completedCount} tugas yang sudah selesai?`);
+      if (confirmed) {
+        todos = todos.filter((t) => !t.completed);
+        saveTodosToStorage(todos);
+        renderTodoList();
+      }
+    });
+
+    function openTodoList() {
+      todoDialog.showModal();
+      renderTodoList();
+      setTimeout(() => todoInput.focus(), 50);
+    }
+
+    function closeTodoList() {
+      todoDialog.close();
+      editingTodoId = null;
+      editErrorMsg = "";
+      todoFormError.textContent = "";
+    }
+
+    menuTodoBtn.addEventListener("click", openTodoList);
+    todoCloseBtn.addEventListener("click", closeTodoList);
+    todoDialog.addEventListener("click", (event) => {
+      if (event.target === todoDialog) closeTodoList();
+    });
+
+    renderTodoList();
+
+    /* ==========================================================================
+       BAGIAN E: LOGIKA KALKULATOR
+       ========================================================================== */
+    const calculatorDialog = document.querySelector("#calculator-dialog");
+    const resultDisplay = document.querySelector("#result");
+    const expressionDisplay = document.querySelector("#expression");
+    const keys = document.querySelector("#keys");
+    const operatorButtons = [...document.querySelectorAll(".key.operator")];
+    const menuCalcBtn = document.querySelector("#menu-calc-button");
+    const calcCloseBtn = document.querySelector("#calc-close-btn");
+
+    let currentValue = "0";
+    let storedValue = null;
+    let pendingOperator = null;
+    let resetOnDigit = false;
+
+    function updateCalcDisplay() {
+      resultDisplay.textContent = currentValue;
+      expressionDisplay.textContent = storedValue === null || pendingOperator === null
+        ? ""
+        : `${storedValue} ${pendingOperator}`;
+      operatorButtons.forEach((btn) => {
+        const isActive = btn.dataset.operator === pendingOperator;
+        btn.classList.toggle("is-active", isActive);
+        btn.setAttribute("aria-pressed", String(isActive));
+      });
+    }
+
+    function resetCalculator() {
+      currentValue = "0";
+      storedValue = null;
+      pendingOperator = null;
+      resetOnDigit = false;
+      updateCalcDisplay();
+    }
+
+    function inputDigit(digit) {
+      if (resetOnDigit || currentValue === "Error") {
+        currentValue = digit;
+        resetOnDigit = false;
+      } else if (currentValue === "0") {
+        currentValue = digit;
+      } else if (currentValue.replace("-", "").length < 12) {
+        currentValue += digit;
+      }
+      updateCalcDisplay();
+    }
+
+    function calculate(left, right, operator) {
+      if (operator === "+") return left + right;
+      if (operator === "−") return left - right;
+      if (operator === "×") return left * right;
+      if (operator === "÷") return right === 0 ? NaN : left / right;
+      return right;
+    }
+
+    function formatNumber(number) {
+      if (!Number.isFinite(number)) return "Error";
+      const rounded = Number.parseFloat(number.toPrecision(10));
+      return String(rounded);
+    }
+
+    function chooseOperator(operator) {
+      const inputValue = Number(currentValue);
+      if (pendingOperator && storedValue !== null) {
+        if (!resetOnDigit) {
+          currentValue = formatNumber(calculate(storedValue, inputValue, pendingOperator));
+          storedValue = Number(currentValue);
+        }
+      } else {
+        storedValue = inputValue;
+      }
+      pendingOperator = operator;
+      currentValue = "0";
+      resetOnDigit = true;
+      updateCalcDisplay();
+    }
+
+    function runCalcAction(action) {
+      if (action === "clear") return resetCalculator();
+      if (action === "decimal") {
+        if (resetOnDigit || currentValue === "Error") currentValue = "0";
+        if (!currentValue.includes(".")) currentValue += ".";
+        resetOnDigit = false;
+      }
+      if (action === "sign" && currentValue !== "0" && currentValue !== "Error") {
+        currentValue = currentValue.startsWith("-") ? currentValue.slice(1) : `-${currentValue}`;
+      }
+      if (action === "percent" && currentValue !== "Error") {
+        currentValue = formatNumber(Number(currentValue) / 100);
+      }
+      if (action === "backspace" && !resetOnDigit && currentValue !== "Error") {
+        currentValue = currentValue.length > 1 ? currentValue.slice(0, -1) : "0";
+        if (currentValue === "-") currentValue = "0";
+      }
+      if (action === "equals" && pendingOperator && storedValue !== null && !resetOnDigit) {
+        currentValue = formatNumber(calculate(storedValue, Number(currentValue), pendingOperator));
+        storedValue = null;
+        pendingOperator = null;
+        resetOnDigit = true;
+      }
+      updateCalcDisplay();
+    }
+
+    function openCalculator() {
+      calculatorDialog.showModal();
+    }
+
+    menuCalcBtn.addEventListener("click", openCalculator);
+    calcCloseBtn.addEventListener("click", () => calculatorDialog.close());
+    calculatorDialog.addEventListener("click", (e) => {
+      if (e.target === calculatorDialog) calculatorDialog.close();
+    });
+
+    keys.addEventListener("click", (event) => {
+      const btn = event.target.closest("button");
+      if (!btn) return;
+      if (btn.dataset.digit !== undefined) inputDigit(btn.dataset.digit);
+      else if (btn.dataset.operator) chooseOperator(btn.dataset.operator);
+      else if (btn.dataset.action) runCalcAction(btn.dataset.action);
+    });
+
+    // Delegasi klik kartu aplikasi dari katalog
+    appGrid.addEventListener("click", (event) => {
+      const card = event.target.closest("[data-app-id]");
+      if (!card) return;
+      if (card.dataset.appId === "habit") openHabitTracker();
+      else if (card.dataset.appId === "pomodoro") openPomodoro();
+      else if (card.dataset.appId === "todo") openTodoList();
+      else if (card.dataset.appId === "calculator") openCalculator();
+    });
+
+    /* ==========================================================================
+       BAGIAN F: PENGENDALI KEYBOARD GLOBAL (SHORTCUT)
+       ========================================================================== */
+    document.addEventListener("keydown", (event) => {
+      // 1. Shortcut Habit Tracker saat terbuka
+      if (habitDialog.open && event.key === "Escape" && editingHabitId === null) {
+        closeHabitTracker();
+        return;
+      }
+
+      // 2. Shortcut Pomodoro Timer (Spasi untuk Mulai/Jeda, R untuk Reset)
+      if (pomoDialog.open) {
+        const isEditingInput = ["INPUT", "TEXTAREA"].includes(document.activeElement?.tagName);
+        if (!isEditingInput) {
+          if (event.code === "Space" || event.key === " ") {
+            event.preventDefault();
+            togglePomodoro();
+            return;
+          }
+          if (event.key === "r" || event.key === "R") {
+            event.preventDefault();
+            resetPomodoro();
+            return;
+          }
+        }
+        if (event.key === "Escape") {
+          if (!pomoSettingsPanel.hidden) {
+            event.preventDefault();
+            pomoSettingsPanel.hidden = true;
+            return;
+          }
+          closePomodoro();
+          return;
+        }
+      }
+
+      // 3. Shortcut Kalkulator jika terbuka
+      if (calculatorDialog.open) {
+        if (/^[0-9]$/.test(event.key)) inputDigit(event.key);
+        else if (event.key === ".") runCalcAction("decimal");
+        else if (event.key === "Backspace") runCalcAction("backspace");
+        else if (event.key === "Escape") calculatorDialog.close();
+        else if (event.key === "Enter" || event.key === "=") runCalcAction("equals");
+        else if (["+", "-", "*", "/"].includes(event.key)) {
+          const ops = { "+": "+", "-": "−", "*": "×", "/": "÷" };
+          chooseOperator(ops[event.key]);
+        } else return;
+        event.preventDefault();
+        return;
+      }
+
+      // 4. Tutup dialog To-Do saat Escape jika tidak sedang mode edit tugas
+      if (todoDialog.open && event.key === "Escape" && editingTodoId === null) {
+        closeTodoList();
+      }
+    });
+
+    // Buka otomatis jika terdapat hash di URL
+    if (window.location.hash === "#habit" || window.location.hash === "#habits") {
+      openHabitTracker();
+    } else if (window.location.hash === "#pomodoro" || window.location.hash === "#pomo") {
+      openPomodoro();
+    } else if (window.location.hash === "#todo") {
+      openTodoList();
+    } else if (window.location.hash === "#kalkulator") {
+      openCalculator();
+    }
+  </script>
+</body>
+</html>
